@@ -94,9 +94,9 @@ input[type="range"] {
   accent-color: var(--signal);
 }
 
-/* hero gauge: the needle swings from "no" up to "pays off" once */
-@keyframes gauge-needle { from { transform: rotate(-138deg); } 70% { transform: rotate(6deg); } to { transform: rotate(0deg); } }
-.gauge-needle { animation: gauge-needle 1.6s cubic-bezier(0.3, 0.8, 0.2, 1) 0.5s both; }
+/* hero mark: the ruler's top segment unfolds once, like opening a folding rule */
+@keyframes ruler-fold { from { transform: rotate(-48deg); } 70% { transform: rotate(3deg); } to { transform: rotate(0deg); } }
+.ruler-fold { animation: ruler-fold 1.2s cubic-bezier(0.3, 0.8, 0.2, 1) 0.6s both; }
 
 @media (prefers-reduced-motion: reduce) {
   *,
