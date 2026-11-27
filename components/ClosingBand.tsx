@@ -21,9 +21,9 @@ export function ClosingBand() {
   }, []);
 
   return (
-    <section ref={root} className="overflow-hidden bg-signal">
+    <section ref={root} className="overflow-hidden bg-tint">
       <div className="mx-auto flex max-w-6xl flex-col items-start gap-10 px-4 py-20 sm:px-6 sm:py-28">
-        <h2 className="font-poster text-[56px] sm:text-[96px]">
+        <h2 className="font-poster text-[44px] sm:text-[76px]">
           <span data-line className="block">Ten minutes.</span>
           <span data-line className="block">One honest number.</span>
         </h2>

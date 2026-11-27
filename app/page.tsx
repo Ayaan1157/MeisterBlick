@@ -24,7 +24,7 @@ export default function Home() {
         {/* Ten-second estimate */}
         <section id="quick" aria-labelledby="quick-h" className="scroll-mt-4">
           <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
-            <ScrollHeading id="quick-h" className="font-poster text-[48px] sm:text-[72px]">Try it in ten seconds</ScrollHeading>
+            <ScrollHeading id="quick-h" className="font-poster text-[40px] sm:text-[60px]">Try it in ten seconds</ScrollHeading>
             <p className="mt-4 max-w-xl text-[19px] text-ink-2">Move the sliders. The same rules and maths as the full check, with typical numbers for your trade.</p>
             <div className="mt-12">
               <QuickEstimate />
@@ -37,7 +37,7 @@ export default function Home() {
         {/* Example results file */}
         <section id="example" aria-labelledby="example-h" className="scroll-mt-4 border-t border-line">
           <div className="mx-auto max-w-6xl px-4 pt-20 sm:px-6 sm:pt-28">
-            <ScrollHeading id="example-h" className="font-poster text-[48px] sm:text-[72px]">What you get</ScrollHeading>
+            <ScrollHeading id="example-h" className="font-poster text-[40px] sm:text-[60px]">What you get</ScrollHeading>
             <p className="mt-4 max-w-xl text-[19px] text-ink-2">
               Thomas runs a painting business with 14 people. This is his results file. Open it, then tap a sheet for the detail.
             </p>
@@ -52,7 +52,7 @@ export default function Home() {
         {/* Pricing */}
         <section id="pricing" aria-labelledby="pricing-h" className="scroll-mt-4">
           <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
-            <ScrollHeading id="pricing-h" className="font-poster text-[48px] sm:text-[72px]">Pricing</ScrollHeading>
+            <ScrollHeading id="pricing-h" className="font-poster text-[40px] sm:text-[60px]">Pricing</ScrollHeading>
             <p className="mt-4 max-w-xl text-[19px] text-ink-2">Start free. Pay only when you want help doing it.</p>
             <DrawLine className="mt-12 h-px bg-ink" />
             <ul>

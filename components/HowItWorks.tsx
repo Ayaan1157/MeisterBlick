@@ -17,7 +17,7 @@ function RulerTicks() {
       {Array.from({ length: MINUTES * 4 + 1 }, (_, i) => {
         const x = (i / (MINUTES * 4)) * 1000;
         const major = i % 4 === 0;
-        return <line key={i} x1={x} x2={x} y1={0} y2={major ? 22 : i % 2 === 0 ? 14 : 9} stroke="#15191c" strokeWidth={major ? 2.4 : 1.2} vectorEffect="non-scaling-stroke" />;
+        return <line key={i} x1={x} x2={x} y1={0} y2={major ? 22 : i % 2 === 0 ? 14 : 9} stroke="#1e2328" strokeWidth={major ? 2.4 : 1.2} vectorEffect="non-scaling-stroke" />;
       })}
     </svg>
   );
@@ -76,13 +76,13 @@ export function HowItWorks() {
   return (
     <section ref={root} id="how" aria-labelledby="how-h" className="scroll-mt-4 overflow-hidden border-t border-line bg-plaster">
       <div className="mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-center px-4 py-20 sm:px-6 md:py-16">
-        <ScrollHeading id="how-h" className="font-poster text-[48px] sm:text-[72px]">Ten minutes, start to end</ScrollHeading>
+        <ScrollHeading id="how-h" className="font-poster text-[40px] sm:text-[60px]">Ten minutes, start to end</ScrollHeading>
 
         <div className="relative mt-14 md:mt-16">
           {/* the ruler; the readout pin rides its unfolding edge */}
           <div className="relative h-14">
-            <div className="absolute inset-0 rounded-[3px] bg-line/60" aria-hidden />
-            <div ref={ruler} className="absolute inset-0 overflow-hidden rounded-[3px] bg-signal">
+            <div className="absolute inset-0 rounded-[3px] border border-dashed border-ink/20" aria-hidden />
+            <div ref={ruler} className="absolute inset-0 overflow-hidden rounded-[3px] bg-ruler">
               <RulerTicks />
               <div className="absolute inset-x-1 bottom-1.5 h-4 text-[12px] font-bold leading-4 tnum" aria-hidden>
                 {Array.from({ length: MINUTES + 1 }, (_, i) => (

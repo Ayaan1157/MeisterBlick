@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "We don't tell you what AI can do. We tell you where it pays off for you. And where it doesn't. One ROI number in 10 minutes.",
 };
 
-export const viewport: Viewport = { themeColor: "#f1f1ee" };
+export const viewport: Viewport = { themeColor: "#f4f5f3" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

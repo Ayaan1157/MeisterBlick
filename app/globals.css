@@ -1,29 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  /* "Signal": safety orange on graphite and grey paper */
-  --plaster: #f1f1ee;
+  /* "Primer": primer-grey walls, painter's-tape blue, graphite pencil. Quiet on purpose. */
+  --plaster: #f4f5f3;
   --sheet: #ffffff;
-  --ink: #15191c;
-  --ink-2: #575e64;
-  --line: #dcddd8;
-  --blue: #15191c;
+  --tint: #e8ecef;
+  --ink: #1e2328;
+  --ink-2: #5f676f;
+  --line: #e3e5e2;
+  --blue: #1e2328;
   --blue-dark: #000000;
-  --signal: #ff5b14;
-  --signal-dark: #e04a08;
-  --ruler: #ff5b14;
-  --ruler-dark: #e04a08;
-  --go: #1d7348;
-  --go-bg: #e4f1e8;
-  --later: #8a5f00;
-  --later-bg: #f5ecd6;
-  --no: #b3261e;
-  --no-bg: #f8e3e1;
+  --signal: #4a6a8a;
+  --signal-dark: #3a566f;
+  --ruler: #d3dee8;
+  --ruler-dark: #b8c8d7;
+  --go: #2e6a4e;
+  --go-bg: #e7f0ea;
+  --later: #86651e;
+  --later-bg: #f4eedf;
+  --no: #a23d33;
+  --no-bg: #f6e6e3;
 }
 
 @theme inline {
   --color-plaster: var(--plaster);
   --color-sheet: var(--sheet);
+  --color-tint: var(--tint);
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-line: var(--line);

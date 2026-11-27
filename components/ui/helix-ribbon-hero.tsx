@@ -193,8 +193,8 @@ export default function HelixRibbonHero({
   count = "",
   bio = "",
   scrollHint = "Scroll",
-  background = "#ff5b14",
-  foreground = "#15191c",
+  background = "#e8ecef",
+  foreground = "#1e2328",
   autoPlay = false,
   className,
 }: HelixRibbonHeroProps) {

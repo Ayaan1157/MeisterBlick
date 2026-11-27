@@ -1,8 +1,8 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-const INK = "#15191c";
-const SIGNAL = "#ff5b14";
+const INK = "#1e2328";
+const SIGNAL = "#4a6a8a";
 
 export function Logo({ onDark = false }: { onDark?: boolean }) {
   return (
@@ -11,7 +11,7 @@ export function Logo({ onDark = false }: { onDark?: boolean }) {
       <svg aria-hidden width="28" height="20" viewBox="0 0 30 22">
         <rect x="1" y="12" width="28" height="9" rx="1" fill={SIGNAL} stroke={onDark ? "#fff" : INK} strokeWidth="1.2" />
         <rect x="1" y="2" width="20" height="9" rx="1" fill={SIGNAL} stroke={onDark ? "#fff" : INK} strokeWidth="1.2" transform="rotate(-14 2 11)" />
-        {[5, 9, 13, 17, 21, 25].map((x) => <line key={x} x1={x} x2={x} y1="12" y2={x % 2 ? 15 : 17} stroke={INK} strokeWidth="1" />)}
+        {[5, 9, 13, 17, 21, 25].map((x) => <line key={x} x1={x} x2={x} y1="12" y2={x % 2 ? 15 : 17} stroke="#ffffff" strokeWidth="1" />)}
       </svg>
       MeisterBlick
     </Link>
@@ -54,7 +54,7 @@ export function btn(variant: Variant = "primary", size: "sm" | "md" | "lg" = "md
   const sizes = { sm: "h-10 px-4 text-[15px]", md: "h-12 px-6 text-[17px]", lg: "h-14 px-8 text-[18px]" };
   const variants: Record<Variant, string> = {
     primary: "bg-ink text-white hover:bg-black",
-    signal: "bg-signal text-ink hover:bg-signal-dark",
+    signal: "bg-signal text-white hover:bg-signal-dark",
     secondary: "bg-transparent text-ink border border-ink/30 hover:border-ink",
     ghost: "text-ink underline underline-offset-4 decoration-2 hover:decoration-signal",
   };

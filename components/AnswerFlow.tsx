@@ -39,9 +39,9 @@ export function AnswerFlow({ covers, label, active = true }: { covers: AnswerCov
           wheel={false}
           showCaptions={false}
           sway={0.6}
-          stageColor="#15191c"
+          stageColor="#1e2328"
           pageColor="transparent"
-          accent="#15191c"
+          accent="#1e2328"
           ariaLabel={label}
           style={{ width: "100%", height: "100%", minHeight: 0, aspectRatio: "auto" }}
         />
@@ -62,11 +62,11 @@ export function AnswerFlow({ covers, label, active = true }: { covers: AnswerCov
             <p className="mt-1.5 line-clamp-2 max-w-2xl text-[15px] leading-snug sm:text-[16px]">{cur.why}</p>
           </div>
           <div className="flex items-center gap-2">
-            <button type="button" onClick={() => go(-1)} aria-label="Previous answer" className="grid h-11 w-11 place-items-center rounded-full border-2 border-ink hover:bg-ink hover:text-signal">
+            <button type="button" onClick={() => go(-1)} aria-label="Previous answer" className="grid h-11 w-11 place-items-center rounded-full border-2 border-ink hover:bg-ink hover:text-white">
               <Arrow dir="left" />
             </button>
             <span className="w-12 text-center text-[14px] font-bold tnum">{index + 1} / {n}</span>
-            <button type="button" onClick={() => go(1)} aria-label="Next answer" className="grid h-11 w-11 place-items-center rounded-full border-2 border-ink hover:bg-ink hover:text-signal">
+            <button type="button" onClick={() => go(1)} aria-label="Next answer" className="grid h-11 w-11 place-items-center rounded-full border-2 border-ink hover:bg-ink hover:text-white">
               <Arrow dir="right" />
             </button>
             <Link href={cur.href} className="ml-2 inline-flex h-11 items-center whitespace-nowrap rounded-full bg-ink px-5 text-[15px] font-bold text-white hover:bg-black">

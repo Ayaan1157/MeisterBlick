@@ -5,15 +5,16 @@ import type { Picks } from "./types";
 
 export type HeroCard = { src: string; title: string; note?: string };
 
-const INK = "#15191c";
-const INK2 = "#575e64";
-const LINE = "#dcddd8";
-const SIGNAL = "#ff5b14";
+const INK = "#1e2328";
+const INK2 = "#5f676f";
+const LINE = "#e3e5e2";
+const SIGNAL = "#4a6a8a";
+const RULER = "#d3dee8";
 const VERDICT = {
-  now: { label: "DO IT NOW", fg: "#ffffff", bg: "#1d7348" },
-  later: { label: "LATER", fg: "#ffffff", bg: "#8a5f00" },
-  no: { label: "NOT WORTH IT", fg: "#ffffff", bg: "#b3261e" },
-  pilot: { label: "FIRST PILOT", fg: SIGNAL, bg: INK },
+  now: { label: "DO IT NOW", fg: "#ffffff", bg: "#2e6a4e" },
+  later: { label: "LATER", fg: "#ffffff", bg: "#86651e" },
+  no: { label: "NOT WORTH IT", fg: "#ffffff", bg: "#a23d33" },
+  pilot: { label: "FIRST PILOT", fg: "#c9d7e4", bg: INK },
 } as const;
 const FONT = "'Helvetica Neue',Helvetica,Arial,sans-serif";
 
@@ -49,6 +50,7 @@ function toolCard(name: string, type: string, price: string) {
   const lines = wrap(name, 22, 3);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
 <rect width="600" height="400" fill="#ffffff"/>
+<rect x="1" y="1" width="598" height="398" fill="none" stroke="${LINE}" stroke-width="2"/>
 <rect x="40" y="40" width="14" height="14" fill="${SIGNAL}"/>
 <text x="66" y="53" font-family="${FONT}" font-weight="700" font-size="17" letter-spacing="2" fill="${INK2}">${esc(type.toUpperCase())}</text>
 ${title(lines, 128, 44)}
@@ -113,7 +115,7 @@ function coverSvg(kind: AnswerKind, no: string, name: string, big: string, small
 ${title(lines, 168, 44)}
 <text x="40" y="436" font-family="${FONT}" font-weight="800" font-size="76" fill="${INK}" letter-spacing="-2">${esc(big)}</text>
 <text x="40" y="486" font-family="${FONT}" font-weight="600" font-size="24" fill="${INK2}">${esc(small)}</text>
-<rect y="540" width="600" height="60" fill="${SIGNAL}"/>
+<rect y="540" width="600" height="60" fill="${RULER}"/>
 ${ticks}
 </svg>`;
   return uri(svg);
