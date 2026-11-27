@@ -9,6 +9,8 @@ import { buildSheets, fileDate } from "@/lib/folderSheets";
 import { FUNDING_NOTE } from "@/lib/funding";
 import { BUDGET_LABELS, eur, months, rank, type Evaluated } from "@/lib/scoring";
 import { useCheckState } from "@/lib/store";
+import { EXAMPLE_LICENCE, recommendLicence } from "@/lib/pricing";
+import { LicenceNote } from "@/components/LicenceNote";
 import type { Assumptions, BudgetTier } from "@/lib/types";
 
 const levelText = (l: string) => (l === "low" ? "Low" : l === "medium" ? "Medium" : "High");
@@ -18,7 +20,6 @@ const spring = { type: "spring" as const, stiffness: 300, damping: 28 };
 function Card({ e, index }: { e: Evaluated; index: number }) {
   const reduce = useReducedMotion();
   const funded = e.funding.eligible && e.funding.grant > 0;
-  const invest = e.uc.type === "Robot" || e.upfront > 5000;
   return (
     <motion.article
       layout={!reduce}
@@ -73,9 +74,6 @@ function Card({ e, index }: { e: Evaluated; index: number }) {
           {e.uc.tools.map((t) => <li key={t} className="rounded-md border border-line px-2.5 py-1 text-[15px]">{t}</li>)}
         </ul>
       </div>
-      {invest && (
-        <Link href={`/invest?task=${e.id}`} className="mt-4 inline-block font-bold text-blue underline underline-offset-4">Compare buy, rent, lease or subscribe</Link>
-      )}
     </motion.article>
   );
 }
@@ -127,6 +125,7 @@ export default function ResultsPage() {
   const pilotEval = results.top.find((t) => t.id === pilot.id);
   const pilotTitle = pilotEval?.title ?? state.picks.candidates.find((c) => c.id === pilot.id)?.title ?? "";
   const sheets = buildSheets(results, state.picks);
+  const licence = state.exampleId === "becker" ? EXAMPLE_LICENCE : recommendLicence(results.top, Math.max(0, results.totalEuro));
 
   return (
     <>
@@ -200,9 +199,6 @@ export default function ResultsPage() {
                   <h3 className="mt-3 font-display text-[21px] font-extrabold leading-tight">{e.uc.title}</h3>
                   <p className="mt-2">{e.reason}</p>
                   <p className="mt-3 text-[15px] text-ink-2 tnum">Costs ≈ {eur(e.upfront)} up front + {eur(e.monthly)} / month · payback {months(e.paybackMonths)}</p>
-                  {(e.uc.type === "Robot" || e.upfront > 5000) && (
-                    <Link href={`/invest?task=${e.id}`} className="mt-2 inline-block text-[16px] font-bold text-blue underline underline-offset-4">Check buy vs. rent anyway</Link>
-                  )}
                 </article>
               ))}
             </div>
@@ -226,11 +222,13 @@ export default function ResultsPage() {
           </div>
         </section>
 
+        <LicenceNote rec={licence} className="mt-8" />
+
         {/* CTAs */}
         <section className="mt-8 grid gap-3 sm:grid-cols-2">
           <ButtonLink href="/demo" size="lg">Try your demo assistant</ButtonLink>
           <ButtonLink href="/report" size="lg" variant="secondary">Download 1-page pilot report (PDF)</ButtonLink>
-          <ButtonLink href="/checkout?plan=pilot-report" size="lg" variant="secondary">Book Pilot Report €490</ButtonLink>
+          <ButtonLink href={`/checkout?plan=${licence.plan}`} size="lg" variant="signal">Choose your licence</ButtonLink>
           <button className={btn("secondary", "lg")} onClick={() => setBooked("funding help")}>Get funding help</button>
         </section>
         {booked && (
@@ -275,7 +273,6 @@ export default function ResultsPage() {
 
         <div className="mt-8 flex flex-wrap gap-4 text-[16px]">
           <Link href="/start" className="font-bold text-blue underline underline-offset-4">Start over</Link>
-          <Link href="/invest" className="font-bold text-blue underline underline-offset-4">Smart Investment Selector</Link>
         </div>
         </div>
       </main>

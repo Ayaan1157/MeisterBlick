@@ -87,7 +87,7 @@ export default function ReportPage() {
         </div>
 
         <footer className="mt-4 border-t border-line pt-2 text-[11px] text-ink-2">
-          All figures are estimates based on your answers and typical costs; check offers before you buy. {state.lead.bavaria ? FUNDING_NOTE : ""} MeisterBlick is vendor-neutral; implementation partners pay us a disclosed commission.
+          All figures are estimates based on your answers and typical costs; check offers before you buy. {state.lead.bavaria ? FUNDING_NOTE : ""}
         </footer>
       </article>
     </main>

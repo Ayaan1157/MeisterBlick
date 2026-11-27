@@ -124,12 +124,11 @@ export function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 text-[15px] text-ink-2 sm:flex-row sm:items-start sm:justify-between sm:px-6">
         <div className="max-w-sm">
           <Logo />
-          <p className="mt-3">Vendor-neutral AI advice for craft businesses, from Schweinfurt. All figures are estimates; partners pay us a disclosed commission.</p>
+          <p className="mt-3">Vendor-neutral AI advice for craft businesses, from Schweinfurt. All figures are estimates.</p>
         </div>
         <ul className="flex flex-wrap gap-x-6 gap-y-2 font-bold text-ink">
           <li><Link className="hover:text-signal-dark" href="/start">Free check</Link></li>
           <li><Link className="hover:text-signal-dark" href="/results?example=becker">Example results</Link></li>
-          <li><Link className="hover:text-signal-dark" href="/invest">Buy, rent or lease?</Link></li>
           <li><Link className="hover:text-signal-dark" href="/#pricing">Pricing</Link></li>
         </ul>
       </div>
