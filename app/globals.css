@@ -101,6 +101,15 @@ input[type="range"] {
   }
 }
 
+/* Lenis smooth scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
+/* scroll headings: give the line masks room for tall poster capitals */
+.sh-line-mask { padding-block: 0.08em; margin-block: -0.08em; }
+
 @keyframes rise {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: none; }

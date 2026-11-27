@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Anton, Archivo } from "next/font/google";
+import { ScrollProgress } from "@/components/motion/ScrollProgress";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import "./globals.css";
 
 const display = Archivo({
@@ -25,7 +27,11 @@ export const viewport: Viewport = { themeColor: "#f1f1ee" };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${poster.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <SmoothScroll />
+        <ScrollProgress />
+        {children}
+      </body>
     </html>
   );
 }
