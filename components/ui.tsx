@@ -83,7 +83,7 @@ export function Ruler({ value, max = 100, label, animate = true }: { value: numb
     ticks.push(<line key={i} x1={i * 10} x2={i * 10} y1={0} y2={h} stroke="#1e2a33" strokeWidth={i % 10 === 0 ? 1.6 : 1} vectorEffect="non-scaling-stroke" />);
   }
   return (
-    <div className="relative pt-9" aria-label={label ?? `${value} of ${max}`} role="img">
+    <div className="relative overflow-x-clip pt-9" aria-label={label ?? `${value} of ${max}`} role="img">
       <div className={`relative h-14 rounded-[3px] bg-ruler shadow-[inset_0_-4px_0_rgba(0,0,0,0.10),0_1px_0_rgba(0,0,0,0.2)] ${animate ? "unfold" : ""}`}>
         <svg viewBox="0 0 1000 60" preserveAspectRatio="none" className="absolute inset-0 h-full w-full" aria-hidden>
           {ticks}
@@ -100,7 +100,7 @@ export function Ruler({ value, max = 100, label, animate = true }: { value: numb
         ))}
       </div>
       {/* pencil mark */}
-      <div className="absolute top-0 bottom-0 transition-[left] duration-700 ease-out" style={{ left: `${pct}%` }}>
+      <div className="pointer-events-none absolute inset-x-0 top-0 bottom-0 transition-transform duration-700 ease-out" style={{ transform: `translateX(${pct}%)` }}>
         <div className="absolute -top-0 -translate-x-1/2 whitespace-nowrap rounded bg-ink px-2 py-0.5 font-display text-[15px] font-extrabold text-white tnum">
           {value}
         </div>

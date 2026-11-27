@@ -129,7 +129,7 @@ export default function ConsultPage() {
     <>
       <SiteHeader right={<span className="text-[15px] text-ink-2">Step 2 of 3 · short chat</span>} />
       <div className="sticky top-16 z-20 h-2 bg-line no-print" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label="Progress">
-        <div className="h-full bg-ruler transition-[width] duration-500" style={{ width: `${progress}%` }} />
+        <div className="h-full origin-left bg-ruler transition-transform duration-500" style={{ transform: `scaleX(${progress / 100})` }} />
       </div>
       <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-4 pb-40 pt-6 sm:px-6">
         <ol className="space-y-4" aria-live="polite">
@@ -167,7 +167,7 @@ export default function ConsultPage() {
             <div className="flex flex-wrap gap-2">
               {last.options.map((o) => (
                 <button key={o} onClick={() => answer(o)}
-                  className={`rise min-h-12 rounded-full border-2 bg-sheet px-4 py-2 text-[17px] font-bold hover:border-blue ${suggested === o ? "border-blue ring-4 ring-blue/15" : "border-ink/20"}`}>
+                  className={`rise min-h-12 rounded-full border-2 bg-sheet px-4 py-2 text-[17px] font-bold transition-transform hover:border-blue active:scale-[0.96] ${suggested === o ? "border-blue ring-4 ring-blue/15" : "border-ink/20"}`}>
                   {o}
                 </button>
               ))}

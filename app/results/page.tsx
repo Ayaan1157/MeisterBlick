@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ButtonLink, Ruler, SiteHeader, Tag, Verdict, btn } from "@/components/ui";
 import { FUNDING_NOTE } from "@/lib/funding";
 import { BUDGET_LABELS, eur, months, rank, type Evaluated } from "@/lib/scoring";
@@ -10,11 +11,21 @@ import type { Assumptions, BudgetTier } from "@/lib/types";
 
 const levelText = (l: string) => (l === "low" ? "Low" : l === "medium" ? "Medium" : "High");
 
+const spring = { type: "spring" as const, stiffness: 300, damping: 28 };
+
 function Card({ e, index }: { e: Evaluated; index: number }) {
+  const reduce = useReducedMotion();
   const funded = e.funding.eligible && e.funding.grant > 0;
   const invest = e.uc.type === "Robot" || e.upfront > 5000;
   return (
-    <article className="rise rounded-xl border border-line bg-sheet p-5 sm:p-6" style={{ animationDelay: `${index * 110}ms` }}>
+    <motion.article
+      layout={!reduce}
+      initial={reduce ? false : { opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0, transition: { ...spring, delay: index * 0.08 } }}
+      exit={reduce ? undefined : { opacity: 0, scale: 0.98, transition: { duration: 0.15 } }}
+      transition={spring}
+      className="rounded-xl border border-line bg-sheet p-5 sm:p-6"
+    >
       <div className="flex flex-wrap items-center gap-2">
         <Verdict v={e.verdict} />
         <Tag>{e.uc.type}</Tag>
@@ -62,7 +73,7 @@ function Card({ e, index }: { e: Evaluated; index: number }) {
       {invest && (
         <Link href={`/invest?task=${e.id}`} className="mt-4 inline-block font-bold text-blue underline underline-offset-4">Compare buy, rent, lease or subscribe</Link>
       )}
-    </article>
+    </motion.article>
   );
 }
 
@@ -137,7 +148,9 @@ export default function ResultsPage() {
           <h2 className="font-display text-[30px] font-extrabold">Your top 3</h2>
           <p className="text-ink-2">Cheapest working option first, then by return.</p>
           <div className="mt-5 space-y-5">
-            {results.top.map((e, i) => <Card key={e.id + state.budget} e={e} index={i} />)}
+            <AnimatePresence initial={true}>
+              {results.top.map((e, i) => <Card key={e.id} e={e} index={i} />)}
+            </AnimatePresence>
           </div>
         </section>
 

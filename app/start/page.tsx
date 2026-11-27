@@ -13,7 +13,7 @@ const blank: Lead = { industry: "painter", teamSize: "10-49", bavaria: true, wee
 function Chip({ on, children, onClick }: { on: boolean; children: React.ReactNode; onClick: () => void }) {
   return (
     <button type="button" aria-pressed={on} onClick={onClick}
-      className={`min-h-12 rounded-full border-2 px-4 py-2 text-[17px] font-bold transition-colors ${on ? "border-blue bg-blue text-white" : "border-ink/20 bg-sheet text-ink hover:border-blue"}`}>
+      className={`min-h-12 rounded-full border-2 px-4 py-2 text-[17px] font-bold transition-[color,background-color,border-color,transform] active:scale-[0.96] ${on ? "border-blue bg-blue text-white" : "border-ink/20 bg-sheet text-ink hover:border-blue"}`}>
       {children}
     </button>
   );
