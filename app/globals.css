@@ -1,26 +1,112 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --plaster: #eef0ea;
+  --sheet: #ffffff;
+  --ink: #1e2a33;
+  --ink-2: #4a5761;
+  --line: #cfd4cc;
+  --blue: #24497a;
+  --blue-dark: #183559;
+  --ruler: #f2c230;
+  --ruler-dark: #d9a913;
+  --go: #2e7a4c;
+  --go-bg: #e3f1e7;
+  --later: #a36f12;
+  --later-bg: #f7eed8;
+  --no: #b0382b;
+  --no-bg: #f6e2df;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-plaster: var(--plaster);
+  --color-sheet: var(--sheet);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-line: var(--line);
+  --color-blue: var(--blue);
+  --color-blue-dark: var(--blue-dark);
+  --color-ruler: var(--ruler);
+  --color-ruler-dark: var(--ruler-dark);
+  --color-go: var(--go);
+  --color-go-bg: var(--go-bg);
+  --color-later: var(--later);
+  --color-later-bg: var(--later-bg);
+  --color-no: var(--no);
+  --color-no-bg: var(--no-bg);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--plaster);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-stretch: 87.5%;
+  letter-spacing: -0.01em;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Squared paper, like the pad on the kitchen table */
+.squared {
+  background-color: var(--sheet);
+  background-image:
+    linear-gradient(to right, rgba(36, 73, 122, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(36, 73, 122, 0.07) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+input[type="range"] {
+  accent-color: var(--blue);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.rise { animation: rise 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+@keyframes unfold {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.unfold { transform-origin: left; animation: unfold 0.9s cubic-bezier(0.3, 0.8, 0.2, 1) both; }
+
+@keyframes blink { 0%, 80%, 100% { opacity: 0.25 } 40% { opacity: 1 } }
+.dot { animation: blink 1.2s infinite both; }
+
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; font-size: 11pt; }
+  .no-print { display: none !important; }
+  .print-sheet { box-shadow: none !important; border: none !important; padding: 0 !important; }
+  a { color: inherit; text-decoration: none; }
 }
