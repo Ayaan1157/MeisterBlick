@@ -2,15 +2,15 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Footer, SiteHeader, btn } from "@/components/ui";
-import { AGENTS, AGENT_ORDER, PLANS, PLAN_ORDER, PRICING_NOTES, euro, perMonth, type AgentId, type PlanId } from "@/lib/pricing";
+import { AGENTS, CUSTOM_AGENT, PHONE_ADDON, PLANS, PLAN_ORDER, PRICING_NOTES, STANDARD_AGENTS, euro, type AgentId, type PlanId } from "@/lib/pricing";
 import { useCheckState } from "@/lib/store";
 
 const STORE = "meisterblick:licence-requests";
 const field = "mt-1 h-12 w-full rounded-lg border-2 border-ink/20 bg-sheet px-3 text-[17px] focus:border-signal focus:outline-none";
 
-/** Agents a plan starts with: Business gets all, the others the first ones that fit. */
-const defaultAgents = (plan: PlanId): AgentId[] =>
-  plan === "business" ? [...AGENT_ORDER] : AGENT_ORDER.filter((a) => !AGENTS[a].businessOnly).slice(0, PLANS[plan].agents);
+/** Standard agents a plan starts with: the first ones that fit (Professional and Business: all three). */
+const defaultAgents = (plan: PlanId): AgentId[] => STANDARD_AGENTS.slice(0, PLANS[plan].agents);
+const tag = "rounded-full px-2 py-0.5 text-[12px] font-bold";
 
 function Input({ id, label, hint, ...rest }: { id: string; label: string; hint?: string } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
@@ -25,21 +25,25 @@ function Input({ id, label, hint, ...rest }: { id: string; label: string; hint?:
 type Request = {
   plan: PlanId; billing: "yearly" | "monthly"; company: string; contact: string; email: string; phone: string;
   street: string; postcode: string; city: string; users: number; start: string; agents: AgentId[];
-  avv: boolean; terms: boolean;
+  phoneAddOn: boolean; custom: boolean; customTask: string; avv: boolean; terms: boolean;
 };
 
 export default function CheckoutPage() {
   const { state } = useCheckState();
   const [r, setR] = useState<Request>({
     plan: "professional", billing: "yearly", company: "", contact: "", email: "", phone: "",
-    street: "", postcode: "", city: "", users: 5, start: "", agents: defaultAgents("professional"), avv: false, terms: false,
+    street: "", postcode: "", city: "", users: 5, start: "", agents: defaultAgents("professional"),
+    phoneAddOn: false, custom: false, customTask: "", avv: false, terms: false,
   });
   const [today, setToday] = useState("");
   const [sent, setSent] = useState<Request | null>(null);
 
   useEffect(() => {
-    const p = new URLSearchParams(window.location.search).get("plan") as PlanId | null;
+    const q = new URLSearchParams(window.location.search);
+    const p = q.get("plan") as PlanId | null;
     if (p && p in PLANS) setR((x) => ({ ...x, plan: p, agents: defaultAgents(p), users: Math.min(x.users, PLANS[p].users ?? x.users) }));
+    if (q.get("phone") === "1") setR((x) => ({ ...x, phoneAddOn: true }));
+    if (q.get("custom") === "1") setR((x) => ({ ...x, custom: true }));
     setToday(new Date().toISOString().slice(0, 10));
   }, []);
   useEffect(() => {
@@ -54,14 +58,19 @@ export default function CheckoutPage() {
   };
   const toggleAgent = (a: AgentId) =>
     setR((x) => {
-      if (x.plan === "business" || AGENTS[a].businessOnly) return x;
+      if (PLANS[x.plan].agents >= STANDARD_AGENTS.length) return x;
       if (PLANS[x.plan].agents === 1) return { ...x, agents: [a] };
       return { ...x, agents: x.agents.includes(a) ? x.agents.filter((y) => y !== a) : [...x.agents, a] };
     });
 
   const P = PLANS[r.plan];
-  const firstYear = P.yearly + P.setup;
-  const agentsOk = r.agents.length === Math.min(P.agents, AGENT_ORDER.length);
+  const allIncluded = P.agents >= STANDARD_AGENTS.length;
+  const phoneIncluded = P.phone === "included";
+  const phoneYear = r.phoneAddOn && !phoneIncluded ? PHONE_ADDON.yearly : 0;
+  const customYear = r.custom ? CUSTOM_AGENT.yearly : 0;
+  const runningYear = P.yearly + phoneYear + customYear;
+  const firstYear = runningYear + P.setup + (r.custom ? CUSTOM_AGENT.buildFrom : 0);
+  const agentsOk = r.agents.length === P.agents;
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -71,13 +80,18 @@ export default function CheckoutPage() {
       const prev = JSON.parse(localStorage.getItem(STORE) || "[]");
       localStorage.setItem(STORE, JSON.stringify([...prev, { ...r, at: new Date().toISOString() }]));
     } catch {}
-    console.info("[licence request]", r);
+    console.info("[licence request]", { ...r, runningYear, firstYear });
     setSent(r);
     window.scrollTo({ top: 0 });
   }
 
   if (sent) {
     const S = PLANS[sent.plan];
+    const sentAgents = [
+      ...sent.agents.map((a) => AGENTS[a].name),
+      ...(S.phone === "included" || sent.phoneAddOn ? [AGENTS.phone.name] : []),
+      ...(sent.custom ? ["Custom agent"] : []),
+    ];
     return (
       <>
         <SiteHeader />
@@ -87,8 +101,9 @@ export default function CheckoutPage() {
             <p className="mt-2 text-[18px]">We&apos;ll confirm your licence and book the process analysis within 2 working days.</p>
             <dl className="mt-5 space-y-1 text-[16px]">
               <div><dt className="inline font-bold">Company: </dt><dd className="inline">{sent.company}</dd></div>
-              <div><dt className="inline font-bold">Agents: </dt><dd className="inline">{sent.agents.map((a) => AGENTS[a].name).join(", ")}</dd></div>
-              <div><dt className="inline font-bold">Billing: </dt><dd className="inline tnum">{sent.billing === "yearly" ? `${euro(S.yearly)} per year` : `≈ ${euro(perMonth(S))} per month, annual contract`}</dd></div>
+              <div><dt className="inline font-bold">Agents: </dt><dd className="inline">{sentAgents.join(", ")}</dd></div>
+              {sent.custom && <div><dt className="inline font-bold">Custom agent: </dt><dd className="inline">{sent.customTask}</dd></div>}
+              <div><dt className="inline font-bold">Billing: </dt><dd className="inline tnum">{sent.billing === "yearly" ? `${euro(runningYear)} per year, plus one-off setup` : `≈ ${euro(runningYear / 12)} per month, annual contract, plus one-off setup`}</dd></div>
               <div><dt className="inline font-bold">Start: </dt><dd className="inline">{sent.start}</dd></div>
             </dl>
             <p className="mt-4 text-[14px] text-ink-2">Demo: nothing was sent and no payment was taken.</p>
@@ -125,14 +140,14 @@ export default function CheckoutPage() {
                   </button>
                 ))}
               </div>
-              <p className="mt-3 text-[15px] text-ink-2">{P.agentsLabel} · {P.usersLabel} · {P.support}</p>
+              <p className="mt-3 text-[15px] text-ink-2">For {P.forLabel} · {P.agentsLabel} · {P.usersLabel} · {P.support}</p>
 
               <p className="mt-5 font-display text-[20px] font-extrabold" aria-hidden>Billing</p>
               <div role="radiogroup" aria-label="Billing" className="mt-3 flex flex-wrap gap-2">
                 {(["yearly", "monthly"] as const).map((b) => (
                   <button key={b} type="button" role="radio" aria-checked={r.billing === b} onClick={() => set("billing", b)}
                     className={`rounded-full border-2 px-4 py-2 font-bold transition-colors ${r.billing === b ? "border-ink bg-ink text-white" : "border-ink/20 bg-sheet hover:border-signal"}`}>
-                    {b === "yearly" ? `Yearly · ${euro(P.yearly)}` : `Monthly · ≈ ${euro(perMonth(P))}`}
+                    {b === "yearly" ? `Yearly · ${euro(runningYear)}` : `Monthly · ≈ ${euro(runningYear / 12)}`}
                   </button>
                 ))}
               </div>
@@ -143,30 +158,69 @@ export default function CheckoutPage() {
               <legend className="sr-only">Agents</legend>
               <p className="font-display text-[20px] font-extrabold" aria-hidden>Your agents</p>
               <p className="mt-1 text-[15px] text-ink-2">
-                {r.plan === "business" ? "All agents are included." : `Pick ${P.agents === 1 ? "1 agent" : `${P.agents} agents`}.`}
+                {allIncluded ? "Invoice, email and quote agents are included." : `Pick ${P.agents === 1 ? "1 agent" : `${P.agents} agents`}.`}
               </p>
               <ul className="mt-3 space-y-2">
-                {AGENT_ORDER.map((a) => {
+                {STANDARD_AGENTS.map((a) => {
                   const A = AGENTS[a];
-                  const locked = r.plan === "business" || !!A.businessOnly;
                   const on = r.agents.includes(a);
                   const full = !on && P.agents > 1 && r.agents.length >= P.agents;
                   return (
                     <li key={a}>
-                      <label className={`flex gap-3 rounded-lg border-2 p-3 ${on ? "border-signal" : "border-ink/15"} ${locked && !on ? "opacity-60" : ""}`}>
-                        <input type={P.agents === 1 && r.plan !== "business" ? "radio" : "checkbox"} name="agents" checked={on} disabled={locked || full}
+                      <label className={`flex gap-3 rounded-lg border-2 p-3 ${on ? "border-signal" : "border-ink/15"}`}>
+                        <input type={P.agents === 1 ? "radio" : "checkbox"} name="agents" checked={on} disabled={allIncluded || full}
                           onChange={() => toggleAgent(a)} className="mt-1 h-5 w-5 flex-none accent-[var(--signal)]" />
                         <span>
-                          <span className="flex flex-wrap items-center gap-2 font-bold">
-                            {A.name}
-                            {A.businessOnly && <span className="rounded-full bg-ruler px-2 py-0.5 text-[12px] font-bold text-ink">Business licence only</span>}
-                          </span>
+                          <span className="font-bold">{A.name}</span>
                           <span className="block text-[15px] text-ink-2">{A.does}</span>
                         </span>
                       </label>
                     </li>
                   );
                 })}
+                <li>
+                  <label className={`flex gap-3 rounded-lg border-2 p-3 ${phoneIncluded || r.phoneAddOn ? "border-signal" : "border-ink/15"}`}>
+                    <input type="checkbox" name="phone" checked={phoneIncluded || r.phoneAddOn} disabled={phoneIncluded}
+                      onChange={(e) => set("phoneAddOn", e.target.checked)} className="mt-1 h-5 w-5 flex-none accent-[var(--signal)]" />
+                    <span>
+                      <span className="flex flex-wrap items-center gap-2 font-bold">
+                        {AGENTS.phone.name}
+                        <span className={`${tag} ${phoneIncluded ? "bg-go-bg text-go" : "bg-ruler text-ink"}`}>
+                          {phoneIncluded ? `Included, ${PHONE_ADDON.businessMinutes} min / month` : `Add-on, +${euro(PHONE_ADDON.monthly)} / month`}
+                        </span>
+                      </span>
+                      <span className="block text-[15px] text-ink-2">
+                        {AGENTS.phone.does} {phoneIncluded ? "" : `${PHONE_ADDON.minutes} call minutes a month included, then €${PHONE_ADDON.extraMinute.toFixed(2)} a minute.`}
+                      </span>
+                    </span>
+                  </label>
+                </li>
+                <li>
+                  <div className={`rounded-lg border-2 border-dashed p-3 ${r.custom ? "border-signal" : "border-ink/30"}`}>
+                    <label className="flex gap-3">
+                      <input type="checkbox" name="custom" checked={r.custom}
+                        onChange={(e) => set("custom", e.target.checked)} className="mt-1 h-5 w-5 flex-none accent-[var(--signal)]" />
+                      <span>
+                        <span className="flex flex-wrap items-center gap-2 font-bold">
+                          Custom agent
+                          <span className={`${tag} border border-ink/30 text-ink`}>From {euro(CUSTOM_AGENT.buildFrom)} + {euro(CUSTOM_AGENT.monthly)} / month</span>
+                        </span>
+                        <span className="block text-[15px] text-ink-2">
+                          We build an agent for a job none of the others does. Fixed price after the process analysis, before you sign.
+                        </span>
+                      </span>
+                    </label>
+                    {r.custom && (
+                      <div className="mt-3 sm:pl-8">
+                        <label htmlFor="customTask" className="block text-[15px] font-bold">What should it do?</label>
+                        <textarea id="customTask" name="customTask" required rows={3} value={r.customTask}
+                          onChange={(e) => set("customTask", e.target.value)}
+                          placeholder="e.g. Order materials from our supplier when a quote is accepted."
+                          className="mt-1 w-full rounded-lg border-2 border-ink/20 bg-sheet px-3 py-2.5 text-[17px] leading-relaxed focus:border-signal focus:outline-none" />
+                      </div>
+                    )}
+                  </div>
+                </li>
               </ul>
               {!agentsOk && <p className="mt-2 text-[15px] font-bold text-no" role="alert">Pick {P.agents} agent{P.agents === 1 ? "" : "s"} to continue.</p>}
             </fieldset>
@@ -209,11 +263,23 @@ export default function CheckoutPage() {
             <p className="font-display text-[20px] font-extrabold">{P.name} licence</p>
             <dl className="mt-3 divide-y divide-line border-y border-line text-[16px]">
               <div className="flex justify-between gap-3 py-2.5"><dt>Licence per year</dt><dd className="font-bold tnum">{euro(P.yearly)}</dd></div>
-              {r.billing === "monthly" && (
-                <div className="flex justify-between gap-3 py-2.5"><dt>Paid monthly</dt><dd className="font-bold tnum">≈ {euro(perMonth(P))} / month</dd></div>
+              {phoneYear > 0 && (
+                <div className="flex justify-between gap-3 py-2.5"><dt>Phone agent per year</dt><dd className="font-bold tnum">{euro(phoneYear)}</dd></div>
               )}
-              <div className="flex justify-between gap-3 py-2.5"><dt>Setup fee</dt><dd className="font-bold tnum">{P.setup ? euro(P.setup) : "Included"}</dd></div>
-              <div className="flex justify-between gap-3 py-2.5"><dt className="font-bold">Total first year</dt><dd className="font-poster text-[28px] leading-none tnum">{euro(firstYear)}</dd></div>
+              {customYear > 0 && (
+                <div className="flex justify-between gap-3 py-2.5"><dt>Custom agent upkeep per year</dt><dd className="font-bold tnum">{euro(customYear)}</dd></div>
+              )}
+              {r.billing === "monthly" && (
+                <div className="flex justify-between gap-3 py-2.5"><dt>Paid monthly</dt><dd className="font-bold tnum">≈ {euro(runningYear / 12)} / month</dd></div>
+              )}
+              <div className="flex justify-between gap-3 py-2.5"><dt>Setup, one-off</dt><dd className="font-bold tnum">{euro(P.setup)}</dd></div>
+              {r.custom && (
+                <div className="flex justify-between gap-3 py-2.5"><dt>Custom agent build</dt><dd className="font-bold tnum">from {euro(CUSTOM_AGENT.buildFrom)}</dd></div>
+              )}
+              <div className="flex items-baseline justify-between gap-3 py-2.5">
+                <dt className="font-bold">Total first year</dt>
+                <dd className="text-right font-poster text-[28px] leading-none tnum">{r.custom && <span className="mr-1 font-display text-[15px] font-bold normal-case">from</span>}{euro(firstYear)}</dd>
+              </div>
             </dl>
             <p className="mt-2 text-[14px] text-ink-2">Net, plus VAT.</p>
             <button type="submit" className={`${btn("signal", "lg")} mt-5 w-full`}>Request licence</button>

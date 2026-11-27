@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ButtonLink } from "@/components/ui";
-import { PLANS, PLAN_ORDER, PRICING_NOTES, euro, perMonth } from "@/lib/pricing";
+import { CUSTOM_AGENT, PLANS, PLAN_ORDER, PRICING_NOTES, euro, perMonth } from "@/lib/pricing";
 
 /** Three annual licences. The monthly view is the same annual contract, shown as yearly ÷ 12. */
 export function PricingCards() {
@@ -39,8 +39,16 @@ export function PricingCards() {
                 {monthly ? `${euro(p.yearly)} per year, annual contract` : `≈ ${euro(perMonth(p))} / month`}
               </p>
               <dl className="mt-5 flex-1 divide-y divide-line border-y border-line text-[16px]">
-                {[["Agents", p.agentsLabel], ["Users", p.usersLabel], ["Support", p.support], ["Setup", p.setup ? `${euro(p.setup)} one-off` : "Included"]].map(([k, v]) => (
-                  <div key={k} className="grid grid-cols-[84px_1fr] gap-3 py-2.5">
+                {[
+                  ["For", p.forLabel],
+                  ["Agents", p.agentsLabel],
+                  ["Phone agent", p.phoneLabel],
+                  ["Users", p.usersLabel],
+                  ["Fair use", `≈ ${p.tasks.toLocaleString("en-US")} tasks / month`],
+                  ["Support", p.support],
+                  ["Setup", `${euro(p.setup)} one-off`],
+                ].map(([k, v]) => (
+                  <div key={k} className="grid grid-cols-[104px_1fr] gap-3 py-2.5">
                     <dt className="text-ink-2">{k}</dt>
                     <dd className="font-bold">{v}</dd>
                   </div>
@@ -52,8 +60,25 @@ export function PricingCards() {
         })}
       </ul>
 
+      {/* Custom agent: for the task none of the standard agents covers */}
+      <div className="mt-5 flex flex-col gap-4 rounded-2xl border border-dashed border-ink/40 bg-plaster p-5 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+        <div className="max-w-2xl">
+          <h3 className="font-display text-[22px] font-extrabold">Custom agent</h3>
+          <p className="mt-1 text-[17px]">
+            A job none of our agents does, like material orders, timesheets or your own software? We build an agent for it.
+          </p>
+          <p className="mt-2 text-[16px] font-bold tnum">
+            From {euro(CUSTOM_AGENT.buildFrom)} one-off, then {euro(CUSTOM_AGENT.monthly)} / month. Works with every licence.
+          </p>
+          <p className="mt-1 text-[14px] text-ink-2">Fixed price after the process analysis, before you sign.</p>
+        </div>
+        <ButtonLink href="/checkout?custom=1" variant="secondary" className="flex-none">Add a custom agent</ButtonLink>
+      </div>
+
       <ul className="mt-8 max-w-2xl space-y-1.5 text-[15px] text-ink-2">
         <li className="font-bold text-ink">{PRICING_NOTES.free}</li>
+        <li>{PRICING_NOTES.tasks}</li>
+        <li>{PRICING_NOTES.phone}</li>
         <li>{PRICING_NOTES.consulting}</li>
         <li>{PRICING_NOTES.terms}</li>
         <li>{PRICING_NOTES.funding}</li>

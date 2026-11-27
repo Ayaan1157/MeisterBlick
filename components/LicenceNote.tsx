@@ -1,5 +1,5 @@
 import { ButtonLink } from "@/components/ui";
-import { AGENTS, PLANS, euro, perMonth, type LicenceRecommendation } from "@/lib/pricing";
+import { AGENTS, PHONE_ADDON, PLANS, euro, perMonth, type LicenceRecommendation } from "@/lib/pricing";
 
 /** The recommended annual licence for a result. Reads every price from lib/pricing. */
 export function LicenceNote({ rec, button = false, className = "" }: { rec: LicenceRecommendation; button?: boolean; className?: string }) {
@@ -12,6 +12,11 @@ export function LicenceNote({ rec, button = false, className = "" }: { rec: Lice
         <span className="font-display text-[24px] font-extrabold">{p.name}</span>
         <span className="tnum text-ink-2">{euro(p.yearly)} / year · ≈ {euro(perMonth(p))} / month</span>
       </p>
+      {rec.phoneAddOn && (
+        <p className="mt-1 text-[16px] tnum">
+          + Phone agent {euro(PHONE_ADDON.monthly)} / month = <b>≈ {euro(rec.monthly)} / month</b>
+        </p>
+      )}
       <p className="mt-2 text-[16px]">
         {agents ? <><b>{rec.agents.length === 1 ? "Agent" : "Agents"}:</b> {agents}</> : <>Pick the one agent that fits you best.</>}
       </p>
@@ -19,7 +24,7 @@ export function LicenceNote({ rec, button = false, className = "" }: { rec: Lice
         <p className="mt-1 text-[16px]">Your licence costs ≈ <b className="tnum">{rec.share}%</b> of the time it gives back{rec.valuePerMonth ? <> (≈ {euro(rec.valuePerMonth)} value per month)</> : null}.</p>
       )}
       <p className="mt-1 text-[13px] text-ink-2">Estimate.</p>
-      {button && <ButtonLink href={`/checkout?plan=${rec.plan}`} variant="signal" className="mt-4">Choose your licence</ButtonLink>}
+      {button && <ButtonLink href={`/checkout?plan=${rec.plan}${rec.phoneAddOn ? "&phone=1" : ""}`} variant="signal" className="mt-4">Choose your licence</ButtonLink>}
     </div>
   );
 }

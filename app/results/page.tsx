@@ -125,7 +125,7 @@ export default function ResultsPage() {
   const pilotEval = results.top.find((t) => t.id === pilot.id);
   const pilotTitle = pilotEval?.title ?? state.picks.candidates.find((c) => c.id === pilot.id)?.title ?? "";
   const sheets = buildSheets(results, state.picks);
-  const licence = state.exampleId === "becker" ? EXAMPLE_LICENCE : recommendLicence(results.top, Math.max(0, results.totalEuro));
+  const licence = state.exampleId === "becker" ? EXAMPLE_LICENCE : recommendLicence(results.top, Math.max(0, results.totalEuro), state.lead.teamSize);
 
   return (
     <>
@@ -228,7 +228,7 @@ export default function ResultsPage() {
         <section className="mt-8 grid gap-3 sm:grid-cols-2">
           <ButtonLink href="/demo" size="lg">Try your demo assistant</ButtonLink>
           <ButtonLink href="/report" size="lg" variant="secondary">Download 1-page pilot report (PDF)</ButtonLink>
-          <ButtonLink href={`/checkout?plan=${licence.plan}`} size="lg" variant="signal">Choose your licence</ButtonLink>
+          <ButtonLink href={`/checkout?plan=${licence.plan}${licence.phoneAddOn ? "&phone=1" : ""}`} size="lg" variant="signal">Choose your licence</ButtonLink>
           <button className={btn("secondary", "lg")} onClick={() => setBooked("funding help")}>Get funding help</button>
         </section>
         {booked && (

@@ -105,7 +105,7 @@ export function QuickEstimate() {
             </li>
           )}
         </ul>
-        <LicenceNote rec={recommendLicence(r.top, Math.max(0, r.totalEuro))} className="mt-6" />
+        <LicenceNote rec={recommendLicence(r.top, Math.max(0, r.totalEuro), team)} className="mt-6" />
         <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
           <ButtonLink href="/start" variant="signal" size="lg">Do the full check · 10 min</ButtonLink>
           <Link href="/results?example=becker" className="font-bold underline decoration-2 underline-offset-4 hover:decoration-signal">See a full example</Link>
