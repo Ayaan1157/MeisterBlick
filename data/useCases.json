@@ -148,7 +148,7 @@
     "risk": "medium",
     "gdpr": "Visitor messages, name and phone. EU hosting, cookie-free widget, clear notice that it is automated.",
     "readiness": "Set up in 1 hour from your existing website text. Office checks requests once a day.",
-    "tools": ["AI Check Starter Build (callback assistant)", "Userlike (DE)", "moinAI (DE)"],
+    "tools": ["MeisterBlick Starter Build (callback assistant)", "Userlike (DE)", "moinAI (DE)"],
     "notWorthItWhen": ["low_web_traffic"],
     "notWorthItReason": "Your website gets around 20 visitors a month. A chatbot would answer almost nobody. Put your phone number and a callback form at the top instead.",
     "pilot": {

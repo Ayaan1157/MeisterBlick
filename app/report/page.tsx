@@ -32,7 +32,7 @@ export default function ReportPage() {
       <article className="print-sheet rounded-xl border border-line bg-sheet p-6 text-[14px] leading-snug sm:p-10 print:text-[10.5pt]">
         <header className="flex items-start justify-between gap-4 border-b-2 border-ink pb-3">
           <div>
-            <p className="font-display text-[13px] font-extrabold">AI Check · 1-page pilot report</p>
+            <p className="font-display text-[13px] font-extrabold">MeisterBlick · 1-page pilot report</p>
             <h1 className="font-display text-[28px] font-extrabold leading-tight">{name}</h1>
             <p className="text-ink-2">{state.profile?.industry} · {state.lead.teamSize.replace("-", "–")} people · {state.lead.bavaria ? "Bavaria" : "outside Bavaria"} · {date}</p>
           </div>
@@ -87,7 +87,7 @@ export default function ReportPage() {
         </div>
 
         <footer className="mt-4 border-t border-line pt-2 text-[11px] text-ink-2">
-          All figures are estimates based on your answers and typical costs; check offers before you buy. {state.lead.bavaria ? FUNDING_NOTE : ""} AI Check is vendor-neutral; implementation partners pay us a disclosed commission.
+          All figures are estimates based on your answers and typical costs; check offers before you buy. {state.lead.bavaria ? FUNDING_NOTE : ""} MeisterBlick is vendor-neutral; implementation partners pay us a disclosed commission.
         </footer>
       </article>
     </main>

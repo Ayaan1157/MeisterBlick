@@ -3,11 +3,15 @@ import type { ReactNode } from "react";
 
 export function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-2 font-display text-xl font-extrabold tracking-tight text-ink">
-      <span aria-hidden className="inline-flex h-7 w-11 items-center justify-center rounded-[3px] bg-ruler text-[13px] font-black text-ink shadow-[inset_0_-3px_0_rgba(0,0,0,0.12)]">
-        AI
-      </span>
-      Check
+    <Link href="/" className="flex items-center gap-2.5 font-display text-xl font-extrabold tracking-tight text-ink" aria-label="MeisterBlick home">
+      {/* a folded carpenter's ruler: two hinged segments */}
+      <svg aria-hidden width="30" height="22" viewBox="0 0 30 22">
+        <rect x="1" y="12" width="28" height="9" rx="1.5" fill="#f2c230" stroke="#1e2a33" strokeWidth="1.2" />
+        <rect x="1" y="2" width="20" height="9" rx="1.5" fill="#f2c230" stroke="#1e2a33" strokeWidth="1.2" transform="rotate(-14 2 11)" />
+        {[5, 9, 13, 17, 21, 25].map((x) => <line key={x} x1={x} x2={x} y1="12" y2={x % 2 ? 15 : 17} stroke="#1e2a33" strokeWidth="1" />)}
+        <circle cx="3.5" cy="16.5" r="1.4" fill="#1e2a33" />
+      </svg>
+      MeisterBlick
     </Link>
   );
 }

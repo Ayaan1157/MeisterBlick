@@ -121,7 +121,7 @@ export default function Home() {
             <div className="mt-8 overflow-hidden rounded-xl border border-white/15">
               <div className="grid grid-cols-2 bg-white/5 text-[15px] font-bold text-white/70">
                 <div className="px-4 py-3">Just ChatGPT</div>
-                <div className="border-l border-white/15 px-4 py-3 text-ruler">AI Check</div>
+                <div className="border-l border-white/15 px-4 py-3 text-ruler">MeisterBlick</div>
               </div>
               {vsChatGPT.map(([a, b]) => (
                 <div key={a} className="grid grid-cols-2 border-t border-white/15 text-[16px] sm:text-[18px]">

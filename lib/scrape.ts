@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio";
 
 const CAP = 12000;
-const UA = "Mozilla/5.0 (compatible; AICheckBot/1.0)";
+const UA = "Mozilla/5.0 (compatible; MeisterBlickBot/1.0)";
 const WANTED = /(about|ueber|uber|wir|team|leistung|service|angebot|kontakt|contact|faq|fragen|preise|price|oeffnung|öffnung|hours)/i;
 
 function normalise(url: string): URL | null {

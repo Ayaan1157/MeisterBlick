@@ -1,4 +1,4 @@
-# AI Check
+# MeisterBlick
 
 **We don't tell you what AI can do. We tell you where it pays off for you. And where it doesn't.**
 

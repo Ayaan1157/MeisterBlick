@@ -15,7 +15,7 @@ const body = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: "AI Check: where AI pays off for your business",
+  title: "MeisterBlick: where AI pays off for your business",
   description:
     "We don't tell you what AI can do. We tell you where it pays off for you. And where it doesn't. One ROI number in 10 minutes.",
 };

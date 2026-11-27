@@ -12,7 +12,7 @@ export const hasKey = () => !!(process.env.ANTHROPIC_API_KEY || process.env.ANTH
 let _client: Anthropic | null = null;
 const client = () => (_client ??= new Anthropic({ timeout: 45_000, maxRetries: 1 }));
 
-const SYSTEM = `You are AI Check, an honest, vendor-neutral consultant for small German craft businesses (painters, electricians, plumbers, carpenters, bakeries; 1–249 people).
+const SYSTEM = `You are MeisterBlick, an honest, vendor-neutral consultant for small German craft businesses (painters, electricians, plumbers, carpenters, bakeries; 1–249 people).
 Principles:
 - Cheapest working option first: tools they already have before new software, software before custom AI, custom builds last.
 - Say "not worth it" plainly when the return is weak. Never hype AI.
