@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ButtonLink, Ruler, SiteHeader, Tag, Verdict, btn } from "@/components/ui";
-import { FrostedFolderLookbook, type FolderSheet } from "@/components/ui/frosted-folder-lookbook";
+import { FrostedFolderLookbook } from "@/components/ui/frosted-folder-lookbook";
+import { buildSheets, fileDate } from "@/lib/folderSheets";
 import { FUNDING_NOTE } from "@/lib/funding";
 import { BUDGET_LABELS, eur, months, rank, type Evaluated } from "@/lib/scoring";
 import { useCheckState } from "@/lib/store";
@@ -107,6 +108,14 @@ export default function ResultsPage() {
     return rank(state.picks, state.assumptions, state.lead, state.budget);
   }, [state]);
 
+  // arriving from a sheet on the homepage (/results#pilot): the sections render on the client, so scroll once they exist
+  const ready = !!results;
+  useEffect(() => {
+    if (!ready || !window.location.hash) return;
+    const t = setTimeout(() => document.getElementById(window.location.hash.slice(1))?.scrollIntoView({ block: "start" }), 150);
+    return () => clearTimeout(t);
+  }, [ready]);
+
   if (!state || !results || !state.picks || !state.lead) return <><SiteHeader /><main className="p-10 text-center text-ink-2">Loading your results…</main></>;
 
   const a = state.assumptions;
@@ -117,28 +126,7 @@ export default function ResultsPage() {
   const pilot = state.picks.pilot;
   const pilotEval = results.top.find((t) => t.id === pilot.id);
   const pilotTitle = pilotEval?.title ?? state.picks.candidates.find((c) => c.id === pilot.id)?.title ?? "";
-  const sheets: FolderSheet[] = [
-    ...results.top.map((e, i): FolderSheet => ({
-      kind: e.verdict === "now" ? "now" : "later",
-      code: `No. ${i + 1}`,
-      title: e.title,
-      note: e.description,
-      big: `≈ ${eur(e.euroMonth)}`,
-      bigNote: `per month · ≈ ${e.hours} h`,
-      foot: `Payback: ${months(e.paybackMonths)}`,
-      href: `#uc-${e.id}`,
-    })),
-    { kind: "pilot" as const, code: "2 weeks", title: pilotTitle, note: pilot.why, foot: `Success: ${pilot.metric}`, href: "#pilot" },
-    ...results.notWorth.map((e): FolderSheet => ({
-      kind: "no",
-      code: "Skip",
-      title: e.uc.title,
-      note: e.reason,
-      foot: `Payback: ${months(e.paybackMonths)}`,
-      href: `#no-${e.id}`,
-    })),
-  ].slice(0, 6);
-  const fileDate = new Date().toLocaleDateString("en-GB", { month: "long", year: "numeric" });
+  const sheets = buildSheets(results, state.picks);
 
   return (
     <>
@@ -170,7 +158,7 @@ export default function ResultsPage() {
             className="mt-4"
             title={name}
             subtitle="AI Check results"
-            line={`Score ${results.checkScore} / 100 · ${fileDate}`}
+            line={`Score ${results.checkScore} / 100 · ${fileDate()}`}
             footer="Estimates only"
             wordmark="MeisterBlick"
             sheets={sheets}

@@ -31,7 +31,7 @@ export type FolderSheet = {
   bigNote?: string
   /** Bottom line, e.g. "Pays back in 3 months". */
   foot?: string
-  /** In-page anchor (e.g. "#pilot") shown when the sheet is picked from the open file. */
+  /** Where the sheet leads when picked from the open file: an in-page anchor ("#pilot") or a page URL. */
   href?: string
 }
 
@@ -470,7 +470,11 @@ export function FrostedFolderLookbook({
   }, [open, toggle])
 
   const jump = (href?: string) => {
-    if (!href || !href.startsWith("#")) return
+    if (!href) return
+    if (!href.startsWith("#")) {
+      window.location.assign(href)
+      return
+    }
     const target = document.getElementById(href.slice(1))
     if (target) target.scrollIntoView({ behavior: m.current.reduced ? "auto" : "smooth", block: "start" })
   }

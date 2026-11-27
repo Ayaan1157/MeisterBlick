@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ExampleFile } from "@/components/ExampleFile";
 import { ButtonLink, Footer, Ruler, SiteHeader, Verdict } from "@/components/ui";
 
 const promises = [
@@ -111,6 +112,19 @@ export default function Home() {
               </li>
             ))}
           </ol>
+        </section>
+
+        {/* Example results file */}
+        <section id="example" aria-labelledby="example-h" className="border-t border-line">
+          <div className="mx-auto max-w-6xl px-4 pt-14 sm:px-6">
+            <h2 id="example-h" className="font-display text-[34px] font-extrabold">What you get at the end</h2>
+            <p className="mt-2 max-w-2xl text-ink-2">
+              Your results file: the top 3 with euros and payback, your first pilot, and what to skip. This is the one for Thomas&apos;s painting business. Open it, then tap any sheet for the full detail.
+            </p>
+          </div>
+          <div className="mt-6">
+            <ExampleFile />
+          </div>
         </section>
 
         {/* Why not ChatGPT */}
