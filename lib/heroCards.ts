@@ -1,6 +1,7 @@
 // Cards for the homepage helix: drawn as SVG so they stay sharp, load nothing from elsewhere
 // and match the theme. Image SVGs can't use the page's web fonts, so they use system faces.
 import { USE_CASES, byId, eur, months, type Results } from "./scoring";
+import { AGENTS, AGENT_FOR_USE_CASE } from "./pricing";
 import type { Picks } from "./types";
 
 export type HeroCard = { src: string; title: string; note?: string };
@@ -45,7 +46,7 @@ function title(lines: string[], y0: number, size: number) {
     .join("");
 }
 
-/** A tool from the library, as it is sold to you: type, name, price. */
+/** A tool from the library: who runs it, its name, what it gives back. */
 function toolCard(name: string, type: string, price: string) {
   const lines = wrap(name, 22, 3);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
@@ -60,25 +61,29 @@ ${title(lines, 128, 44)}
   return uri(svg);
 }
 
+// Tools a firm can switch on with an agent licence, not robots or six-figure builds.
 const RIBBON_IDS = [
-  "custom-ai-scheduling", "painting-robot", "website-faq-assistant", "phone-ai-answer", "social-posts", "palletizer",
-  "quote-photo-voice", "email-drafts", "site-report", "floor-cleaning-robot", "review-requests", "crew-planning-board",
+  "quote-photo-voice", "phone-ai-answer", "invoice-reminders", "email-drafts", "website-faq-assistant", "extra-work-voice-log",
+  "quote-followup", "review-requests", "voicemail-transcribe", "site-report", "social-posts", "receipt-capture",
 ];
 
-function priceLine(id: string) {
-  const u = byId(id)!;
-  const up = u.upfrontCost[1];
-  const mo = u.monthlyCost[1];
-  if (up >= 5000) return `up to ${eur(up)} up front`;
-  if (mo > 0) return `up to ${eur(mo)} a month`;
-  return up > 0 ? `up to ${eur(up)} once` : "free with tools you have";
-}
+/** What the tool gives back, from the library's range of hours saved. */
+const savesLine = (id: string) => {
+  const [a, b] = byId(id)!.hoursSaved;
+  return `saves ≈ ${a}–${b} h a month`;
+};
 
-/** Twelve tools from the library: everything a craft business gets offered. */
+/** The agent that runs the tool, as the card's label; tools outside the agents are "AI tool". */
+const kindLabel = (id: string) => {
+  const a = AGENT_FOR_USE_CASE[id];
+  return a ? AGENTS[a].name : "AI tool";
+};
+
+/** Twelve AI tools a craft business can put to work now, each with the agent that runs it. */
 export function ribbonCards(): HeroCard[] {
   return RIBBON_IDS.map((id) => USE_CASES.find((u) => u.id === id)!)
     .filter(Boolean)
-    .map((u) => ({ src: toolCard(u.title, u.type, priceLine(u.id)), title: u.title }));
+    .map((u) => ({ src: toolCard(u.title, kindLabel(u.id), savesLine(u.id)), title: u.title }));
 }
 
 

@@ -94,6 +94,10 @@ input[type="range"] {
   accent-color: var(--signal);
 }
 
+/* hero gauge: the needle swings from "no" up to "pays off" once */
+@keyframes gauge-needle { from { transform: rotate(-138deg); } 70% { transform: rotate(6deg); } to { transform: rotate(0deg); } }
+.gauge-needle { animation: gauge-needle 1.6s cubic-bezier(0.3, 0.8, 0.2, 1) 0.5s both; }
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
