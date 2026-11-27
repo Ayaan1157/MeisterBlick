@@ -2,7 +2,7 @@
 
 **We don't tell you what AI can do. We tell you where it pays off for you. And where it doesn't.**
 
-Live: https://ai-check-nine.vercel.app · Code: https://github.com/Ayaan1157/MeisterBlick · On stage: https://ai-check-nine.vercel.app/start?example=becker&demo=1
+Live: https://meisterblick-check.vercel.app · Code: https://github.com/Ayaan1157/MeisterBlick · On stage: https://meisterblick-check.vercel.app/start?example=becker&demo=1
 
 Built at the Foundry 8.8.8 Start-a-thon (THWS Schweinfurt), problem 02: *"AI or not? AI for the small company."*
 
