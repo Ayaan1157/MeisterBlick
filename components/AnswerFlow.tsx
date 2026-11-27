@@ -39,9 +39,9 @@ export function AnswerFlow({ covers, label, active = true }: { covers: AnswerCov
           wheel={false}
           showCaptions={false}
           sway={0.6}
-          stageColor="#1e2328"
+          stageColor="#14302e"
           pageColor="transparent"
-          accent="#1e2328"
+          accent="#14302e"
           ariaLabel={label}
           style={{ width: "100%", height: "100%", minHeight: 0, aspectRatio: "auto" }}
         />

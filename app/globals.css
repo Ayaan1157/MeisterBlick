@@ -1,25 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  /* "Primer": primer-grey walls, painter's-tape blue, graphite pencil. Quiet on purpose. */
-  --plaster: #f4f5f3;
+  /* "Pigment": painters' earth pigments. Spruce ink, viridian, yellow-ochre (the folding ruler), celadon. */
+  --plaster: #f5f4f0;
   --sheet: #ffffff;
-  --tint: #e8ecef;
-  --ink: #1e2328;
-  --ink-2: #5f676f;
-  --line: #e3e5e2;
-  --blue: #1e2328;
-  --blue-dark: #000000;
-  --signal: #4a6a8a;
-  --signal-dark: #3a566f;
-  --ruler: #d3dee8;
-  --ruler-dark: #b8c8d7;
-  --go: #2e6a4e;
-  --go-bg: #e7f0ea;
-  --later: #86651e;
-  --later-bg: #f4eedf;
-  --no: #a23d33;
-  --no-bg: #f6e6e3;
+  --tint: #e3ebe5;
+  --ink: #14302e;
+  --ink-2: #4f6461;
+  --line: #dfe3dd;
+  --blue: #14302e;
+  --blue-dark: #0b1f1d;
+  --signal: #1f6f5c;
+  --signal-dark: #165545;
+  --ruler: #e2ad4a;
+  --ruler-dark: #c8902a;
+  --go: #1f6f5c;
+  --go-bg: #e1efe9;
+  --later: #9a6b12;
+  --later-bg: #f6ecd5;
+  --no: #a3412e;
+  --no-bg: #f6e3de;
 }
 
 @theme inline {

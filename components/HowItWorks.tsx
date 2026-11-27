@@ -17,7 +17,7 @@ function RulerTicks() {
       {Array.from({ length: MINUTES * 4 + 1 }, (_, i) => {
         const x = (i / (MINUTES * 4)) * 1000;
         const major = i % 4 === 0;
-        return <line key={i} x1={x} x2={x} y1={0} y2={major ? 22 : i % 2 === 0 ? 14 : 9} stroke="#1e2328" strokeWidth={major ? 2.4 : 1.2} vectorEffect="non-scaling-stroke" />;
+        return <line key={i} x1={x} x2={x} y1={0} y2={major ? 22 : i % 2 === 0 ? 14 : 9} stroke="#14302e" strokeWidth={major ? 2.4 : 1.2} vectorEffect="non-scaling-stroke" />;
       })}
     </svg>
   );

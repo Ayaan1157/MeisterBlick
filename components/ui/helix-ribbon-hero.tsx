@@ -193,8 +193,8 @@ export default function HelixRibbonHero({
   count = "",
   bio = "",
   scrollHint = "Scroll",
-  background = "#e8ecef",
-  foreground = "#1e2328",
+  background = "#e3ebe5",
+  foreground = "#14302e",
   autoPlay = false,
   className,
 }: HelixRibbonHeroProps) {
@@ -661,9 +661,9 @@ export default function HelixRibbonHero({
         <nav className="hrh-nav hrh-fade" aria-label="Main">
           <a href="/" className="hrh-brand">
             <svg aria-hidden width="28" height="20" viewBox="0 0 30 22">
-              <rect x="1" y="12" width="28" height="9" rx="1" fill="var(--hrh-fg)" />
-              <rect x="1" y="2" width="20" height="9" rx="1" fill="var(--hrh-fg)" transform="rotate(-14 2 11)" />
-              {[5, 9, 13, 17, 21, 25].map((x) => <line key={x} x1={x} x2={x} y1="12" y2={x % 2 ? 15 : 17} stroke="var(--hrh-bg)" strokeWidth="1" />)}
+              <rect x="1" y="12" width="28" height="9" rx="1" fill="#e2ad4a" stroke="var(--hrh-fg)" strokeWidth="1.2" />
+              <rect x="1" y="2" width="20" height="9" rx="1" fill="#e2ad4a" stroke="var(--hrh-fg)" strokeWidth="1.2" transform="rotate(-14 2 11)" />
+              {[5, 9, 13, 17, 21, 25].map((x) => <line key={x} x1={x} x2={x} y1="12" y2={x % 2 ? 15 : 17} stroke="var(--hrh-fg)" strokeWidth="1" />)}
             </svg>
             {brand}
           </a>

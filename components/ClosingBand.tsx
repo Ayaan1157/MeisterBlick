@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { ButtonLink } from "@/components/ui";
 import { gsap, MOTION_OK } from "@/lib/gsap";
 
-/** The last orange band: its two lines slide in from opposite sides as you reach it. */
+/** The last band, spruce with an ochre button: its two lines slide in from opposite sides as you reach it. */
 export function ClosingBand() {
   const root = useRef<HTMLElement>(null);
 
@@ -21,13 +21,13 @@ export function ClosingBand() {
   }, []);
 
   return (
-    <section ref={root} className="overflow-hidden bg-tint">
+    <section ref={root} className="overflow-hidden bg-ink text-white">
       <div className="mx-auto flex max-w-6xl flex-col items-start gap-10 px-4 py-20 sm:px-6 sm:py-28">
         <h2 className="font-poster text-[44px] sm:text-[76px]">
           <span data-line className="block">Ten minutes.</span>
           <span data-line className="block">One honest number.</span>
         </h2>
-        <ButtonLink href="/start" size="lg">Start free check</ButtonLink>
+        <ButtonLink href="/start" size="lg" variant="ruler">Start free check</ButtonLink>
       </div>
     </section>
   );

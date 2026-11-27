@@ -33,7 +33,7 @@ export function ScrollProgress() {
 
   return (
     <div aria-hidden className="no-print pointer-events-none fixed inset-x-0 top-0 z-[60] h-[3px]">
-      <div ref={ref} className="h-full origin-left bg-ink" style={{ transform: "scaleX(0)" }} />
+      <div ref={ref} className="h-full origin-left bg-signal" style={{ transform: "scaleX(0)" }} />
     </div>
   );
 }

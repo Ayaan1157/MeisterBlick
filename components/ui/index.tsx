@@ -1,17 +1,17 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-const INK = "#1e2328";
-const SIGNAL = "#4a6a8a";
+const INK = "#14302e";
+const SIGNAL = "#e2ad4a";
 
 export function Logo({ onDark = false }: { onDark?: boolean }) {
   return (
     <Link href="/" className={`flex items-center gap-2.5 font-display text-[19px] font-extrabold tracking-tight ${onDark ? "text-white" : "text-ink"}`} aria-label="MeisterBlick home">
       {/* a folded carpenter's ruler: two hinged segments */}
       <svg aria-hidden width="28" height="20" viewBox="0 0 30 22">
-        <rect x="1" y="12" width="28" height="9" rx="1" fill={SIGNAL} stroke={onDark ? "#fff" : INK} strokeWidth="1.2" />
-        <rect x="1" y="2" width="20" height="9" rx="1" fill={SIGNAL} stroke={onDark ? "#fff" : INK} strokeWidth="1.2" transform="rotate(-14 2 11)" />
-        {[5, 9, 13, 17, 21, 25].map((x) => <line key={x} x1={x} x2={x} y1="12" y2={x % 2 ? 15 : 17} stroke="#ffffff" strokeWidth="1" />)}
+        <rect x="1" y="12" width="28" height="9" rx="1" fill={SIGNAL} stroke={INK} strokeWidth="1.2" />
+        <rect x="1" y="2" width="20" height="9" rx="1" fill={SIGNAL} stroke={INK} strokeWidth="1.2" transform="rotate(-14 2 11)" />
+        {[5, 9, 13, 17, 21, 25].map((x) => <line key={x} x1={x} x2={x} y1="12" y2={x % 2 ? 15 : 17} stroke={INK} strokeWidth="1" />)}
       </svg>
       MeisterBlick
     </Link>
@@ -35,7 +35,7 @@ export function SiteHeader({ right }: { right?: ReactNode }) {
   );
 }
 
-type Variant = "primary" | "secondary" | "ghost" | "signal";
+type Variant = "primary" | "secondary" | "ghost" | "signal" | "ruler";
 
 export function ButtonLink({
   href, children, variant = "primary", size = "md", className = "", onClick,
@@ -55,6 +55,7 @@ export function btn(variant: Variant = "primary", size: "sm" | "md" | "lg" = "md
   const variants: Record<Variant, string> = {
     primary: "bg-ink text-white hover:bg-black",
     signal: "bg-signal text-white hover:bg-signal-dark",
+    ruler: "bg-ruler text-ink hover:bg-ruler-dark",
     secondary: "bg-transparent text-ink border border-ink/30 hover:border-ink",
     ghost: "text-ink underline underline-offset-4 decoration-2 hover:decoration-signal",
   };

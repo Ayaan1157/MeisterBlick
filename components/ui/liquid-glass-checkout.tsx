@@ -22,9 +22,9 @@ import * as React from "react"
 export type NimbusCardTheme = "sky" | "glass" | "deep"
 
 export const CARD_THEMES: Record<NimbusCardTheme, { a: number[]; b: number[]; w: number[]; fg: string; soft: string; back: string }> = {
-  sky: { a: [0.45, 0.57, 0.69], b: [0.23, 0.33, 0.44], w: [0.8, 0.87, 0.93], fg: "#FFFFFF", soft: "rgba(255,255,255,.78)", back: "linear-gradient(160deg,#7392b0,#3a566f)" },
+  sky: { a: [0.2, 0.55, 0.46], b: [0.08, 0.3, 0.26], w: [0.75, 0.9, 0.84], fg: "#FFFFFF", soft: "rgba(255,255,255,.78)", back: "linear-gradient(160deg,#2f8a72,#14453b)" },
   glass: { a: [0.93, 0.97, 1], b: [0.72, 0.87, 0.99], w: [0.2, 0.74, 1], fg: "#0B132B", soft: "rgba(11,19,43,.62)", back: "linear-gradient(160deg,#EEF7FF,#B9DCF8)" },
-  deep: { a: [0.15, 0.17, 0.19], b: [0.05, 0.06, 0.07], w: [0.45, 0.57, 0.69], fg: "#F4F4F1", soft: "rgba(244,244,241,.66)", back: "linear-gradient(160deg,#2A2F33,#0C0E10)" },
+  deep: { a: [0.15, 0.17, 0.19], b: [0.05, 0.06, 0.07], w: [0.89, 0.68, 0.29], fg: "#F4F4F1", soft: "rgba(244,244,241,.66)", back: "linear-gradient(160deg,#2A2F33,#0C0E10)" },
 }
 
 const CARD_VERT = `attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}`
@@ -363,12 +363,12 @@ export const WaterCard = React.forwardRef<WaterCardHandle, WaterCardProps>(funct
 
 export const CARD_CSS = `
 .nc-scene{position:relative;perspective:1100px;flex:none;-webkit-tap-highlight-color:transparent}
-.nc-shadow{position:absolute;left:8%;right:8%;bottom:-6%;height:30%;border-radius:50%;background:radial-gradient(closest-side,rgba(30,45,60,.3),rgba(30,45,60,0));filter:blur(14px);z-index:0;pointer-events:none}
+.nc-shadow{position:absolute;left:8%;right:8%;bottom:-6%;height:30%;border-radius:50%;background:radial-gradient(closest-side,rgba(15,45,40,.3),rgba(15,45,40,0));filter:blur(14px);z-index:0;pointer-events:none}
 .nc-scene[data-theme="deep"] .nc-shadow{background:radial-gradient(closest-side,rgba(0,10,40,.6),rgba(0,10,40,0))}
 .nc-card{position:relative;width:100%;height:100%;transform-style:preserve-3d;will-change:transform;z-index:1}
 .nc-face{position:absolute;inset:0;border-radius:var(--nc-r);overflow:hidden;-webkit-backface-visibility:hidden;backface-visibility:hidden;color:var(--nc-fg)}
 .nc-front{box-shadow:inset 0 0 0 1px rgba(255,255,255,.28)}
-.nc-edge{position:absolute;inset:0;border-radius:var(--nc-r);transform:translateZ(-2.5px);background:rgba(170,190,210,.9);box-shadow:0 0 0 .6px rgba(255,255,255,.6)}
+.nc-edge{position:absolute;inset:0;border-radius:var(--nc-r);transform:translateZ(-2.5px);background:rgba(160,205,190,.9);box-shadow:0 0 0 .6px rgba(255,255,255,.6)}
 .nc-water{position:absolute;inset:0;display:block}
 .nc-fallback{display:none;position:absolute;inset:0}
 .nc-fallback>span{position:absolute;left:0;right:0;bottom:0;transition:height .6s ease}
@@ -380,7 +380,7 @@ export const CARD_CSS = `
 .nc-cloud{display:inline-block;width:1.55em;height:1em}
 .nc-cl{display:inline-block;width:1.4em;height:1.4em;color:var(--nc-soft)}
 .nc-chip{display:block;width:13%;aspect-ratio:4/3;margin-top:8%;border-radius:6px;box-shadow:0 1px 2px rgba(0,0,0,.18)}
-.nc-num{margin-top:auto;font-size:1.36em;font-weight:520;letter-spacing:.06em;font-variant-numeric:tabular-nums;white-space:nowrap;text-shadow:0 1px 2px rgba(20,30,45,.22)}
+.nc-num{margin-top:auto;font-size:1.36em;font-weight:520;letter-spacing:.06em;font-variant-numeric:tabular-nums;white-space:nowrap;text-shadow:0 1px 2px rgba(10,35,30,.22)}
 .nc-bottom{display:flex;align-items:flex-end;gap:7%;margin-top:5.5%}
 .nc-field{display:flex;flex-direction:column;gap:.25em;min-width:0}
 .nc-lbl{font-size:.56em;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--nc-soft)}
@@ -388,7 +388,7 @@ export const CARD_CSS = `
 .nc-name{max-width:11em;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase}
 .nc-brand{margin-left:auto;font-weight:750;font-style:italic;font-size:1.02em;letter-spacing:.02em;white-space:nowrap}
 .nc-back{transform:translateZ(-5px) rotateY(180deg);background:var(--nc-back);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);font-family:ui-sans-serif,-apple-system,"Segoe UI",system-ui,sans-serif}
-.nc-stripe{position:absolute;left:0;right:0;top:12%;height:19%;background:linear-gradient(180deg,#1e2328,#2a2f33)}
+.nc-stripe{position:absolute;left:0;right:0;top:12%;height:19%;background:linear-gradient(180deg,#14302e,#2a2f33)}
 .nc-sigrow{position:absolute;left:7%;right:7%;top:42%;display:flex;align-items:center;gap:4%}
 .nc-sig{flex:1;height:2.3em;border-radius:6px;background:repeating-linear-gradient(-45deg,rgba(255,255,255,.85) 0 6px,rgba(220,235,250,.85) 6px 12px)}
 .nc-cvc{min-width:3.6em;height:2.3em;display:grid;place-items:center;border-radius:6px;background:#fff;color:#0B132B;font-weight:650;font-style:italic;letter-spacing:.08em;font-variant-numeric:tabular-nums}
@@ -519,15 +519,15 @@ void main(){
  c=mix(vec3(1.),irid,.5*fres)*pa+c*(1.-pa);a=pa+a*(1.-pa);
  float th=lens(dd,11.);
  float cs=caus((p+n.xy*th*18.)*.085,uTime*.9);
- vec3 tint=mix(vec3(.93,.95,.97),vec3(.8,.86,.92),uDark);
+ vec3 tint=mix(vec3(.93,.97,.95),vec3(.8,.9,.86),uDark);
  float rim=dm*(1.-smoothstep(0.,8.,-dd));
  float cres=dm*smoothstep(.12,.55,dot(n.xy,normalize(vec2(.55,.85))))*smoothstep(0.,3.,-dd);
  float body=.5+.5*clamp(-n.y*3.,-1.,1.);
  float da=dm*(.26+.14*body)*(1.-.35*uDark);vec3 dc=mix(tint,vec3(1.),body*.6);
  /* blue water while paying */
- vec3 bw=mix(vec3(.66,.77,.87),vec3(.29,.42,.55),clamp(.5-n.y*2.+th*.3,0.,1.));
+ vec3 bw=mix(vec3(.62,.84,.76),vec3(.12,.44,.36),clamp(.5-n.y*2.+th*.3,0.,1.));
  dc=mix(dc,bw,uBlue);da=mix(da,dm*.9,uBlue);
- float la=rim*.22;vec3 lc=mix(vec3(.29,.42,.55),vec3(.42,.55,.68),uDark);dc=lc*la+dc*da*(1.-la);da=la+da*(1.-la);
+ float la=rim*.22;vec3 lc=mix(vec3(.12,.44,.36),vec3(.2,.55,.46),uDark);dc=lc*la+dc*da*(1.-la);da=la+da*(1.-la);
  la=clamp(cres*.7+smoothstep(.6,1.,cs)*(.28+.25*uBlue)*th*dm,0.,1.);dc=vec3(1.)*la+dc*(1.-la);da=la+da*(1.-la);
  la=clamp(dm*(spec*1.2+spec2*.5),0.,1.);dc=vec3(1.)*la+dc*(1.-la);da=la+da*(1.-la);
  la=dm*smoothstep(-2.,0.,dd)*.4;dc=mix(vec3(1.),irid,.35)*la+dc*(1.-la);da=la+da*(1.-la);
@@ -779,7 +779,7 @@ const LC_CSS = `
 .lc-panel{position:relative;isolation:isolate;width:380px;max-width:100%;padding:26px 24px 22px;border-radius:28px}
 .lc-glass{position:absolute;inset:0;border-radius:inherit;z-index:-2;background:var(--p-tint);
   -webkit-backdrop-filter:blur(14px) saturate(1.2) brightness(1.06);backdrop-filter:blur(14px) saturate(1.2) brightness(1.06);
-  box-shadow:inset 0 1px 1px var(--p-rim),inset 0 0 0 1px rgba(255,255,255,.2),0 22px 50px -24px rgba(25,35,45,.4),0 2px 6px rgba(25,35,45,.08)}
+  box-shadow:inset 0 1px 1px var(--p-rim),inset 0 0 0 1px rgba(255,255,255,.2),0 22px 50px -24px rgba(10,35,30,.4),0 2px 6px rgba(10,35,30,.08)}
 .nimbus-pay[data-tone="dark"] .lc-glass{box-shadow:inset 0 1px 1px var(--p-rim),inset 0 0 0 1px rgba(255,255,255,.1),0 22px 50px -24px rgba(0,0,0,.7)}
 .lc-water{position:absolute;left:${-PAD}px;top:${-PAD}px;z-index:-1;pointer-events:none}
 .nimbus-pay[data-gl="off"] .lc-water{display:none}
@@ -796,16 +796,16 @@ const LC_CSS = `
   box-shadow:inset 0 0 0 1px var(--p-line),inset 0 1px 2px rgba(0,40,90,.06);background:rgba(255,255,255,.12);transition:box-shadow .25s}
 .nimbus-pay[data-tone="dark"] .lc-box{background:rgba(255,255,255,.04)}
 .lc-box[data-invalid="true"]{box-shadow:inset 0 0 0 1.5px var(--p-err)}
-.lc-in{all:unset;box-sizing:border-box;width:100%;height:100%;padding:0 14px;font-size:15px;font-weight:520;letter-spacing:.01em;font-variant-numeric:tabular-nums;color:var(--p-fg);caret-color:#4a6a8a}
+.lc-in{all:unset;box-sizing:border-box;width:100%;height:100%;padding:0 14px;font-size:15px;font-weight:520;letter-spacing:.01em;font-variant-numeric:tabular-nums;color:var(--p-fg);caret-color:#1f6f5c}
 .lc-in::placeholder{color:var(--p-faint);opacity:1}
 .lc-tag{position:absolute;right:12px;font-size:11px;font-weight:750;font-style:italic;letter-spacing:.02em;color:var(--p-soft);pointer-events:none;transition:opacity .25s,transform .35s cubic-bezier(.3,1.6,.5,1)}
 .lc-tag[data-on="false"]{opacity:0;transform:scale(.6)}
 .lc-err{min-height:16px;margin-top:2px;font-size:12px;color:var(--p-err)}
 .lc-pay{position:relative;all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:52px;margin-top:4px;border-radius:999px;cursor:pointer;
   font-size:16px;font-weight:620;letter-spacing:-.01em;color:var(--p-fg);background-color:rgba(255,255,255,.2);
-  box-shadow:inset 0 1px 1px rgba(255,255,255,.9),inset 0 0 0 1px rgba(255,255,255,.5),inset 0 -2px 6px rgba(74,106,138,.14),0 8px 20px -10px rgba(30,45,60,.35);transition:color .35s}
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.9),inset 0 0 0 1px rgba(255,255,255,.5),inset 0 -2px 6px rgba(31,111,92,.14),0 8px 20px -10px rgba(15,45,40,.35);transition:color .35s}
 .nimbus-pay[data-tone="dark"] .lc-pay{background-color:rgba(255,255,255,.07);box-shadow:inset 0 1px 1px rgba(255,255,255,.35),inset 0 0 0 1px rgba(255,255,255,.14),0 8px 20px -10px rgba(0,0,0,.6)}
-.lc-pay:focus-visible{outline:2px solid #4a6a8a;outline-offset:3px}
+.lc-pay:focus-visible{outline:2px solid #1f6f5c;outline-offset:3px}
 .lc-pay{transition:color .35s,background-color .45s,box-shadow .45s}
 .lc-pay[data-phase="processing"],.lc-pay[data-phase="success"]{color:#fff;cursor:default}
 .nimbus-pay .lc-pay[data-phase="success"]{background-color:transparent;box-shadow:none}
@@ -824,7 +824,7 @@ const LC_CSS = `
 .nimbus-pay[data-layout="wallet"]{flex-direction:column;gap:22px}
 .lc-stack{position:relative;width:var(--lc-cw);margin:0 auto}
 .lc-slot{all:unset;position:absolute;left:0;top:0;cursor:pointer;border-radius:16px;transition:transform .6s cubic-bezier(.25,1.25,.35,1),filter .4s}
-.lc-slot:focus-visible{outline:2px solid #4a6a8a;outline-offset:4px}
+.lc-slot:focus-visible{outline:2px solid #1f6f5c;outline-offset:4px}
 .lc-slot[aria-checked="false"]{filter:saturate(.9) brightness(.97)}
 .lc-rows{display:flex;flex-direction:column;margin-bottom:6px}
 .lc-row{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:0 14px;border-radius:16px;font-size:14px}
@@ -1218,7 +1218,7 @@ export function LiquidCheckout({
             <div className="lc-rows">
               <div className="lc-row" ref={rowRef}>
                 <span className="lc-row-k">Card</span>
-                <span className="lc-row-v"><span className="lc-mini" style={{ background: `var(--nc-back-${selected.theme}, ${selected.theme === "sky" ? "linear-gradient(160deg,#7392b0,#3a566f)" : selected.theme === "glass" ? "linear-gradient(160deg,#EEF7FF,#B9DCF8)" : "linear-gradient(160deg,#2A2F33,#0C0E10)"})` }} />{selected.label} ·· {selected.last4}</span>
+                <span className="lc-row-v"><span className="lc-mini" style={{ background: `var(--nc-back-${selected.theme}, ${selected.theme === "sky" ? "linear-gradient(160deg,#2f8a72,#14453b)" : selected.theme === "glass" ? "linear-gradient(160deg,#EEF7FF,#B9DCF8)" : "linear-gradient(160deg,#2A2F33,#0C0E10)"})` }} />{selected.label} ·· {selected.last4}</span>
               </div>
               <div className="lc-row"><span className="lc-row-k">Total</span><span className="lc-row-v">{money}</span></div>
             </div>

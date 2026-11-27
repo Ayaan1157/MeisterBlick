@@ -5,16 +5,16 @@ import type { Picks } from "./types";
 
 export type HeroCard = { src: string; title: string; note?: string };
 
-const INK = "#1e2328";
-const INK2 = "#5f676f";
-const LINE = "#e3e5e2";
-const SIGNAL = "#4a6a8a";
-const RULER = "#d3dee8";
+const INK = "#14302e";
+const INK2 = "#4f6461";
+const LINE = "#dfe3dd";
+const SIGNAL = "#e2ad4a";
+const RULER = "#e2ad4a";
 const VERDICT = {
-  now: { label: "DO IT NOW", fg: "#ffffff", bg: "#2e6a4e" },
-  later: { label: "LATER", fg: "#ffffff", bg: "#86651e" },
-  no: { label: "NOT WORTH IT", fg: "#ffffff", bg: "#a23d33" },
-  pilot: { label: "FIRST PILOT", fg: "#c9d7e4", bg: INK },
+  now: { label: "DO IT NOW", fg: "#ffffff", bg: "#1f6f5c" },
+  later: { label: "LATER", fg: "#ffffff", bg: "#9a6b12" },
+  no: { label: "NOT WORTH IT", fg: "#ffffff", bg: "#a3412e" },
+  pilot: { label: "FIRST PILOT", fg: "#e2ad4a", bg: INK },
 } as const;
 const FONT = "'Helvetica Neue',Helvetica,Arial,sans-serif";
 

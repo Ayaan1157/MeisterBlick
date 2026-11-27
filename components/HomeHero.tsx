@@ -10,20 +10,20 @@ import { demoState } from "@/lib/store";
 function RulerMark() {
   const ticks = (x: number, len: number) =>
     Array.from({ length: 19 }, (_, i) => (
-      <line key={i} x1={x} x2={x + (i % 5 === 0 ? 9 : 5)} y1={i * 6 + 2} y2={i * 6 + 2} stroke="#1e2328" strokeWidth={i % 5 === 0 ? 1.6 : 1} />
+      <line key={i} x1={x} x2={x + (i % 5 === 0 ? 9 : 5)} y1={i * 6 + 2} y2={i * 6 + 2} stroke="#14302e" strokeWidth={i % 5 === 0 ? 1.6 : 1} />
     )).slice(0, len);
   return (
     <svg viewBox="0 0 80 100" preserveAspectRatio="xMidYMid slice" aria-hidden>
-      <rect width="80" height="100" fill="#1e2328" />
+      <rect width="80" height="100" fill="#14302e" />
       <g transform="rotate(-16 40 100)">
-        <rect x="22" y="-8" width="16" height="120" fill="#d3dee8" />
+        <rect x="22" y="-8" width="16" height="120" fill="#e2ad4a" />
         <g transform="translate(0 -6)">{ticks(22, 19)}</g>
       </g>
       <g transform="rotate(16 40 100)">
-        <rect x="42" y="-8" width="16" height="120" fill="#d3dee8" />
+        <rect x="42" y="-8" width="16" height="120" fill="#e2ad4a" />
         <g transform="translate(0 -6)">{ticks(42, 19)}</g>
       </g>
-      <circle cx="40" cy="96" r="3" fill="#1e2328" />
+      <circle cx="40" cy="96" r="3" fill="#14302e" />
     </svg>
   );
 }
