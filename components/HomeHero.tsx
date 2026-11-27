@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { AnswerFlow } from "@/components/AnswerFlow";
 import HelixRibbonHero from "@/components/ui/helix-ribbon-hero";
 import { answerCovers, ribbonCards } from "@/lib/heroCards";
-import { rank, USE_CASES } from "@/lib/scoring";
+import { rank } from "@/lib/scoring";
 import { demoState } from "@/lib/store";
 
 /** A payoff gauge beside the headline: the needle swings up to "pays off". */
@@ -56,10 +56,10 @@ export function HomeHero() {
         { label: "Example", href: "#example" },
         { label: "Pricing", href: "#pricing" },
         { label: "Funding", href: "/funding" },
+        { label: "Contact", href: "/contact" },
       ]}
       cta={{ label: "Start free check", href: "/start" }}
-      count={`( ${USE_CASES.length} tools checked )`}
-      bio="An honest AI check for craft businesses. Ten minutes, one number in euros, and a straight answer where it doesn't pay."
+      bio="Your craft stays human. Your paperwork goes to AI. Quotes, invoices, emails and calls, handled by agents we set up for you."
       scrollHint="Scroll: one painter's answers"
       screens={3}
     />

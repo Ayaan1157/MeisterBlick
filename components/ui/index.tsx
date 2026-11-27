@@ -28,6 +28,7 @@ export function SiteHeader({ right }: { right?: ReactNode }) {
             <Link href="/#how" className="hidden px-3 py-2 text-ink-2 hover:text-ink sm:block">How it works</Link>
             <Link href="/#pricing" className="hidden px-3 py-2 text-ink-2 hover:text-ink sm:block">Pricing</Link>
             <Link href="/funding" className="hidden px-3 py-2 text-ink-2 hover:text-ink sm:block">Funding</Link>
+            <Link href="/contact" className="hidden px-3 py-2 text-ink-2 hover:text-ink sm:block">Contact</Link>
             <ButtonLink href="/start" size="sm">Start free check</ButtonLink>
           </nav>
         )}
@@ -125,13 +126,14 @@ export function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 text-[15px] text-ink-2 sm:flex-row sm:items-start sm:justify-between sm:px-6">
         <div className="max-w-sm">
           <Logo />
-          <p className="mt-3">Vendor-neutral AI advice for craft businesses, from Schweinfurt. All figures are estimates.</p>
+          <p className="mt-3">Vendor-neutral AI for craft businesses. Made in Germany, working worldwide. All figures are estimates.</p>
         </div>
         <ul className="flex flex-wrap gap-x-6 gap-y-2 font-bold text-ink">
           <li><Link className="hover:text-signal-dark" href="/start">Free check</Link></li>
           <li><Link className="hover:text-signal-dark" href="/results?example=becker">Example results</Link></li>
           <li><Link className="hover:text-signal-dark" href="/#pricing">Pricing</Link></li>
           <li><Link className="hover:text-signal-dark" href="/funding">Funding</Link></li>
+          <li><Link className="hover:text-signal-dark" href="/contact">Contact</Link></li>
         </ul>
       </div>
     </footer>
