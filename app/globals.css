@@ -1,21 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --plaster: #eef0ea;
+  /* "Signal": safety orange on graphite and grey paper */
+  --plaster: #f1f1ee;
   --sheet: #ffffff;
-  --ink: #1e2a33;
-  --ink-2: #4a5761;
-  --line: #cfd4cc;
-  --blue: #24497a;
-  --blue-dark: #183559;
-  --ruler: #f2c230;
-  --ruler-dark: #d9a913;
-  --go: #2e7a4c;
-  --go-bg: #e3f1e7;
-  --later: #a36f12;
-  --later-bg: #f7eed8;
-  --no: #b0382b;
-  --no-bg: #f6e2df;
+  --ink: #15191c;
+  --ink-2: #575e64;
+  --line: #dcddd8;
+  --blue: #15191c;
+  --blue-dark: #000000;
+  --signal: #ff5b14;
+  --signal-dark: #e04a08;
+  --ruler: #ff5b14;
+  --ruler-dark: #e04a08;
+  --go: #1d7348;
+  --go-bg: #e4f1e8;
+  --later: #8a5f00;
+  --later-bg: #f5ecd6;
+  --no: #b3261e;
+  --no-bg: #f8e3e1;
 }
 
 @theme inline {
@@ -26,6 +29,8 @@
   --color-line: var(--line);
   --color-blue: var(--blue);
   --color-blue-dark: var(--blue-dark);
+  --color-signal: var(--signal);
+  --color-signal-dark: var(--signal-dark);
   --color-ruler: var(--ruler);
   --color-ruler-dark: var(--ruler-dark);
   --color-go: var(--go);
@@ -36,10 +41,13 @@
   --color-no-bg: var(--no-bg);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
+  --font-poster: var(--font-poster);
 }
 
 html {
   -webkit-text-size-adjust: 100%;
+  /* Archivo carries body text and UI too: one working face (Archivo), one poster face (Anton) */
+  --font-body: var(--font-display);
 }
 
 body {
@@ -60,23 +68,28 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Squared paper, like the pad on the kitchen table */
+/* plain sheet (the old squared-paper pattern is gone) */
 .squared {
   background-color: var(--sheet);
-  background-image:
-    linear-gradient(to right, rgba(36, 73, 122, 0.07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(36, 73, 122, 0.07) 1px, transparent 1px);
-  background-size: 20px 20px;
+}
+
+/* poster headlines: Anton, set in capitals */
+.font-poster {
+  font-family: var(--font-poster), Impact, "Arial Narrow", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 0.95;
 }
 
 :focus-visible {
-  outline: 3px solid var(--blue);
+  outline: 3px solid var(--signal);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
 input[type="range"] {
-  accent-color: var(--blue);
+  accent-color: var(--signal);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -91,7 +91,7 @@ export default function CheckoutPage() {
 
           <section
             className="relative overflow-hidden rounded-xl px-3 py-8 sm:px-6 sm:py-10"
-            style={{ background: "radial-gradient(120% 90% at 15% 10%, #f4f8fc 0%, #dce6f0 45%, #b9cde2 100%)" }}
+            style={{ background: "radial-gradient(120% 90% at 15% 10%, #ffffff 0%, #ecece8 48%, #ffcdb4 100%)" }}
           >
             <LiquidCheckout
               key={plan}

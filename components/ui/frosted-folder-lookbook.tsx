@@ -3,7 +3,7 @@
 import * as React from "react"
 
 /* Frosted Folder Lookbook, adapted for MeisterBlick as the "results file".
-   A translucent blue document folder lies on a dark workshop table with the company's name on the cover.
+   A translucent document folder lies on a dark workshop table with the company's name on the cover.
    It turns toward the pointer, a sheen crosses the plastic and the clips catch the light. Hovering lifts
    the sheets inside. Opening it pulls the binder clip off, swings the cover round its spine and slides
    4–6 feedback sheets out over the table: the top use cases, the first pilot and what's not worth it.
@@ -12,7 +12,7 @@ import * as React from "react"
    MeisterBlick changes to the original component:
    - sheets are feedback cards (verdict band, title, number, note) instead of photos; up to 6 sheets
    - 5–6 sheets lay out in two rows of three on wide screens, three rows of two on phones
-   - navy plastic, ink table and folding-ruler yellow accent instead of teal; site fonts
+   - smoky graphite plastic with a signal-orange edge on a graphite table; site fonts
    - a sheet with an `href` jumps to that section of the page when the file is open
    - the chrome wordmark widens to fit longer words such as "MeisterBlick" */
 
@@ -256,52 +256,52 @@ const NOISE =
   "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>\")"
 
 const CSS =
-  ".ffl-root{position:relative;overflow:hidden;width:100%;background:var(--ffl-bg);color:#e4ecf6;font-family:var(--font-body),ui-sans-serif,system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;isolation:isolate}" +
+  ".ffl-root{position:relative;overflow:hidden;width:100%;background:var(--ffl-bg);color:#f1f1ee;font-family:var(--font-body),ui-sans-serif,system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;isolation:isolate}" +
   ".ffl-root img{max-width:none}" +
   ".ffl-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(52% 46% at 50% 47%,color-mix(in srgb,var(--ffl-tint) 14%,transparent),transparent 72%)}" +
   ".ffl-rig{position:absolute;inset:0;perspective:1900px}" +
   ".ffl-shell{position:absolute;left:0;top:0;perspective:2600px;cursor:pointer;-webkit-tap-highlight-color:transparent}" +
-  ".ffl-back{position:absolute;inset:0;z-index:1;border-radius:3px 11px 11px 3px;background:linear-gradient(180deg,color-mix(in srgb,var(--ffl-tint) 46%,#0d1b2c),#10233a 34%,#0b1726 70%,color-mix(in srgb,var(--ffl-tint) 52%,#0d1b2c));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ffl-tint) 46%,transparent),0 40px 80px -30px rgba(0,0,0,.8)}" +
-  ".ffl-tab{position:absolute;z-index:1;left:100%;top:52%;width:3.6%;height:25%;margin-left:-1px;border-radius:0 7px 7px 0;background:linear-gradient(180deg,color-mix(in srgb,var(--ffl-tint) 62%,#0d1b2c),color-mix(in srgb,var(--ffl-tint) 36%,#0d1b2c));box-shadow:inset -1px 0 0 color-mix(in srgb,var(--ffl-tint) 70%,#fff)}" +
+  ".ffl-back{position:absolute;inset:0;z-index:1;border-radius:3px 11px 11px 3px;background:linear-gradient(180deg,color-mix(in srgb,var(--ffl-tint) 46%,#15191c),#1d2226 34%,#111417 70%,color-mix(in srgb,var(--ffl-tint) 52%,#15191c));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ffl-tint) 46%,transparent),0 40px 80px -30px rgba(0,0,0,.8)}" +
+  ".ffl-tab{position:absolute;z-index:1;left:100%;top:52%;width:3.6%;height:25%;margin-left:-1px;border-radius:0 7px 7px 0;background:linear-gradient(180deg,color-mix(in srgb,var(--ffl-tint) 62%,#15191c),color-mix(in srgb,var(--ffl-tint) 36%,#15191c));box-shadow:inset -1px 0 0 color-mix(in srgb,var(--ffl-tint) 70%,#fff)}" +
   ".ffl-paper{position:absolute;z-index:1;border-radius:2px;background:linear-gradient(180deg,#e8ebe4,#d9ddd4);box-shadow:0 0 0 1px rgba(20,30,40,.12),0 6px 16px -8px rgba(0,0,0,.5)}" +
   ".ffl-ruled:after{content:'';position:absolute;inset:9% 11% 12%;background:repeating-linear-gradient(180deg,transparent 0 3.2%,rgba(30,42,51,.11) 3.2% 3.5%)}" +
   ".ffl-sheet{position:absolute;left:0;top:0;z-index:2;border-radius:3px}" +
-  ".ffl-sheet:focus-visible{outline:2px solid #f2c230;outline-offset:3px}" +
-  ".ffl-in{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;background:var(--ffl-paper);color:#1e2a33;font-size:var(--ffl-c);line-height:1.25;border-radius:3px;box-shadow:0 0 0 1px rgba(20,30,40,.16),0 10px 24px -10px rgba(0,0,0,.62);transition:transform .38s cubic-bezier(.2,.8,.2,1),box-shadow .38s}" +
+  ".ffl-sheet:focus-visible{outline:2px solid #ff5b14;outline-offset:3px}" +
+  ".ffl-in{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;background:var(--ffl-paper);color:#15191c;font-size:var(--ffl-c);line-height:1.25;border-radius:3px;box-shadow:0 0 0 1px rgba(20,30,40,.16),0 10px 24px -10px rgba(0,0,0,.62);transition:transform .38s cubic-bezier(.2,.8,.2,1),box-shadow .38s}" +
   ".ffl-band{flex:none;display:flex;align-items:center;justify-content:space-between;gap:.6em;padding:.55em .85em;font-size:.82em;font-weight:700;color:#fff;white-space:nowrap}" +
-  ".ffl-band[data-k='now']{background:#2e7a4c}.ffl-band[data-k='later']{background:#a36f12}.ffl-band[data-k='no']{background:#b0382b}.ffl-band[data-k='pilot']{background:#f2c230;color:#1e2a33}" +
+  ".ffl-band[data-k='now']{background:#1d7348}.ffl-band[data-k='later']{background:#8a5f00}.ffl-band[data-k='no']{background:#b3261e}.ffl-band[data-k='pilot']{background:#ff5b14;color:#15191c}" +
   ".ffl-code{font-weight:600;opacity:.85}" +
   ".ffl-body{flex:1 1 0;min-height:0;display:flex;flex-direction:column;padding:.75em .85em .8em}" +
   ".ffl-name{flex:none;margin:0;font-family:var(--font-display),ui-sans-serif,system-ui,sans-serif;font-stretch:87.5%;font-weight:800;font-size:1.14em;line-height:1.14;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}" +
-  ".ffl-note{flex:0 1 auto;min-height:0;margin:.5em 0 0;font-size:.88em;line-height:1.3;color:#4a5761;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}" +
+  ".ffl-note{flex:0 1 auto;min-height:0;margin:.5em 0 0;font-size:.88em;line-height:1.3;color:#575e64;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}" +
   ".ffl-note:has(+.ffl-big){-webkit-line-clamp:3}" +
   ".ffl-big{flex:none;margin:auto 0 0;padding-top:.4em;font-family:var(--font-display),ui-sans-serif,system-ui,sans-serif;font-weight:900;font-size:1.9em;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}" +
-  ".ffl-bignote{flex:none;margin:.25em 0 0;font-size:.82em;color:#4a5761;white-space:nowrap}" +
-  ".ffl-foot-line{flex:none;margin:.6em 0 0;padding-top:.5em;border-top:1px solid #cfd4cc;font-size:.82em;font-weight:700;line-height:1.25;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}" +
+  ".ffl-bignote{flex:none;margin:.25em 0 0;font-size:.82em;color:#575e64;white-space:nowrap}" +
+  ".ffl-foot-line{flex:none;margin:.6em 0 0;padding-top:.5em;border-top:1px solid #dcddd8;font-size:.82em;font-weight:700;line-height:1.25;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}" +
   ".ffl-note+.ffl-foot-line{margin-top:auto}" +
   ".ffl-open .ffl-sheet[data-link='1']{cursor:pointer}" +
   ".ffl-open .ffl-sheet:hover .ffl-in{transform:translateY(-8px);box-shadow:0 0 0 1px rgba(20,30,40,.14),0 26px 44px -14px rgba(0,0,0,.7)}" +
   ".ffl-cover{position:absolute;z-index:3;top:0;bottom:0;right:0;border-radius:2px 11px 11px 2px;" +
   "background:linear-gradient(90deg,color-mix(in srgb,var(--ffl-tint) 30%,transparent),transparent 9%,transparent 93%,color-mix(in srgb,var(--ffl-tint) 26%,transparent))," +
-  "linear-gradient(180deg,color-mix(in srgb,var(--ffl-tint) 50%,rgba(14,34,60,.5)),rgba(14,34,60,.93) 18%,rgba(8,20,38,.97) 56%,rgba(12,30,54,.93) 80%,color-mix(in srgb,var(--ffl-tint) 60%,rgba(12,30,52,.7)));" +
+  "linear-gradient(180deg,color-mix(in srgb,var(--ffl-tint) 50%,rgba(29,34,38,.5)),rgba(29,34,38,.93) 18%,rgba(17,20,23,.97) 56%,rgba(25,29,33,.93) 80%,color-mix(in srgb,var(--ffl-tint) 60%,rgba(25,29,33,.7)));" +
   "-webkit-backdrop-filter:blur(7px) saturate(1.15);backdrop-filter:blur(7px) saturate(1.15);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ffl-tint) 62%,transparent),inset 0 0 46px color-mix(in srgb,var(--ffl-tint) 20%,transparent)}" +
   ".ffl-cover:before{content:'';position:absolute;inset:0;border-radius:inherit;background-image:" + "NOISE_URL" + ";opacity:.11;mix-blend-mode:overlay;pointer-events:none}" +
-  ".ffl-sheen{position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(100deg,transparent 22%,rgba(230,240,255,var(--ffl-fl)) 50%,transparent 78%),radial-gradient(60% 46% at var(--ffl-lx) var(--ffl-ly),rgba(220,234,255,.26),rgba(220,234,255,.06) 46%,transparent 70%)}" +
+  ".ffl-sheen{position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(100deg,transparent 22%,rgba(255,244,236,var(--ffl-fl)) 50%,transparent 78%),radial-gradient(60% 46% at var(--ffl-lx) var(--ffl-ly),rgba(255,236,226,.22),rgba(255,236,226,.05) 46%,transparent 70%)}" +
   ".ffl-face{position:absolute;inset:0}" +
-  ".ffl-head{position:absolute;left:13.5%;right:8%;top:30.5%;display:grid;row-gap:.9em;text-transform:uppercase;font-size:var(--ffl-s);letter-spacing:.3em;line-height:1.3;color:rgba(226,234,246,.86)}" +
-  ".ffl-title{margin:0 0 .25em;font-size:var(--ffl-t);font-weight:600;letter-spacing:.2em;line-height:1.3;color:#f5f8fc;overflow-wrap:anywhere}" +
+  ".ffl-head{position:absolute;left:13.5%;right:8%;top:30.5%;display:grid;row-gap:.9em;text-transform:uppercase;font-size:var(--ffl-s);letter-spacing:.3em;line-height:1.3;color:rgba(241,241,238,.86)}" +
+  ".ffl-title{margin:0 0 .25em;font-size:var(--ffl-t);font-weight:600;letter-spacing:.2em;line-height:1.3;color:#ffffff;overflow-wrap:anywhere}" +
   ".ffl-head p{margin:0}" +
-  ".ffl-rule{display:block;width:2.6em;height:3px;border-radius:2px;background:#f2c230;margin-bottom:.4em}" +
+  ".ffl-rule{display:block;width:2.6em;height:3px;border-radius:2px;background:#ff5b14;margin-bottom:.4em}" +
   ".ffl-foot{position:absolute;left:13.5%;right:8%;bottom:4.2%;display:flex;align-items:center;justify-content:space-between;gap:6%}" +
-  ".ffl-foot p{margin:0;flex:none;text-transform:uppercase;font-size:var(--ffl-s);letter-spacing:.3em;line-height:1;color:rgba(226,234,246,.8)}" +
+  ".ffl-foot p{margin:0;flex:none;text-transform:uppercase;font-size:var(--ffl-s);letter-spacing:.3em;line-height:1;color:rgba(241,241,238,.8)}" +
   ".ffl-mark{flex:0 1 58%;min-width:0;height:auto;display:block;overflow:visible}" +
-  ".ffl-spine{position:absolute;z-index:4;left:0;top:0;bottom:0;border-radius:3px 0 0 3px;pointer-events:none;background:linear-gradient(90deg,rgba(246,250,254,.92),rgba(200,218,240,.62) 30%,rgba(238,244,252,.74) 34%,rgba(170,198,232,.5) 63%,rgba(232,240,250,.6) 67%,rgba(130,168,215,.36));box-shadow:inset 1px 0 0 rgba(250,252,255,.8),-10px 0 26px -12px rgba(196,216,242,.4)}" +
+  ".ffl-spine{position:absolute;z-index:4;left:0;top:0;bottom:0;border-radius:3px 0 0 3px;pointer-events:none;background:linear-gradient(90deg,rgba(250,250,248,.92),rgba(214,214,210,.62) 30%,rgba(244,244,240,.74) 34%,rgba(190,190,184,.5) 63%,rgba(238,238,234,.6) 67%,rgba(160,160,154,.36));box-shadow:inset 1px 0 0 rgba(250,252,255,.8),-10px 0 26px -12px rgba(220,220,214,.35)}" +
   ".ffl-pclip{position:absolute;left:5.6%;overflow:visible;pointer-events:none;filter:drop-shadow(0 2px 2px rgba(0,0,0,.45))}" +
   ".ffl-bclip{position:absolute;z-index:9;left:0;top:0;overflow:visible;pointer-events:none;filter:drop-shadow(0 6px 8px rgba(0,0,0,.5))}" +
-  ".ffl-hint{position:absolute;left:0;right:0;margin:0 auto;width:max-content;display:flex;align-items:center;gap:.8em;padding:0 16px;border:0;background:none;cursor:pointer;color:rgba(226,234,246,.78);font:inherit;font-size:14px;font-weight:700;line-height:1;letter-spacing:.14em;text-transform:uppercase;border-radius:999px;transition:color .25s}" +
+  ".ffl-hint{position:absolute;left:0;right:0;margin:0 auto;width:max-content;display:flex;align-items:center;gap:.8em;padding:0 16px;border:0;background:none;cursor:pointer;color:rgba(241,241,238,.78);font:inherit;font-size:14px;font-weight:700;line-height:1;letter-spacing:.14em;text-transform:uppercase;border-radius:999px;transition:color .25s}" +
   ".ffl-hint:hover{color:#fff}" +
-  ".ffl-hint:focus-visible{outline:2px solid #f2c230;outline-offset:2px}" +
-  ".ffl-hint i{display:block;width:7px;height:7px;border-radius:50%;background:#f2c230;box-shadow:0 0 10px #f2c230}" +
+  ".ffl-hint:focus-visible{outline:2px solid #ff5b14;outline-offset:2px}" +
+  ".ffl-hint i{display:block;width:7px;height:7px;border-radius:50%;background:#ff5b14;box-shadow:0 0 10px #ff5b14}" +
   "@media (prefers-reduced-motion:reduce){.ffl-in,.ffl-hint{transition:none}.ffl-open .ffl-sheet:hover .ffl-in{transform:none}}"
 
 const STYLE = CSS.replace("NOISE_URL", NOISE)
@@ -315,9 +315,9 @@ export function FrostedFolderLookbook({
   sheets = DEFAULT_SHEETS,
   openLabel = "Open your file",
   closeLabel = "Close file",
-  tint = "#6f9fd8",
+  tint = "#ff5b14",
   paper = "#fbfbf8",
-  background = "#141c22",
+  background = "#15191c",
   defaultOpen = false,
   onOpenChange,
   height = "100svh",
@@ -613,9 +613,9 @@ export function FrostedFolderLookbook({
                     <defs>
                       <linearGradient id={uid + "c"} x1="0" y1="0" x2="0" y2="1">
                         <stop offset="0" stopColor="#ffffff" />
-                        <stop offset=".42" stopColor="#a9b9cf" />
-                        <stop offset=".56" stopColor="#f4f8ff" />
-                        <stop offset="1" stopColor="#8096b4" />
+                        <stop offset=".42" stopColor="#b9b9b4" />
+                        <stop offset=".56" stopColor="#fafaf8" />
+                        <stop offset="1" stopColor="#8c8c86" />
                       </linearGradient>
                       <filter id={uid + "f"} x="-8%" y="-30%" width="116%" height="160%" colorInterpolationFilters="sRGB">
                         <feTurbulence type="fractalNoise" baseFrequency="0.016 0.03" numOctaves="2" seed="4" result="n" />

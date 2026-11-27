@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Source_Sans_3 } from "next/font/google";
+import { Anton, Archivo } from "next/font/google";
 import "./globals.css";
 
 const display = Archivo({
@@ -8,10 +8,10 @@ const display = Archivo({
   axes: ["wdth"],
 });
 
-const body = Source_Sans_3({
-  variable: "--font-body",
+const poster = Anton({
+  variable: "--font-poster",
   subsets: ["latin"],
-
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -20,11 +20,11 @@ export const metadata: Metadata = {
     "We don't tell you what AI can do. We tell you where it pays off for you. And where it doesn't. One ROI number in 10 minutes.",
 };
 
-export const viewport: Viewport = { themeColor: "#eef0ea" };
+export const viewport: Viewport = { themeColor: "#f1f1ee" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} h-full antialiased`}>
+    <html lang="en" className={`${display.variable} ${poster.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

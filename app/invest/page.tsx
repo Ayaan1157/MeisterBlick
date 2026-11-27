@@ -7,7 +7,7 @@ import { INVEST_TYPES, OPTION_LABELS, TASK_TO_TYPE, recommend, simulate, type In
 import { eur } from "@/lib/scoring";
 import { useCheckState } from "@/lib/store";
 
-const COLORS: Record<Option | "manual", string> = { manual: "#1e2a33", buy: "#24497a", rent: "#c07a00", lease: "#7a4fa0", raas: "#2e7a4c" };
+const COLORS: Record<Option | "manual", string> = { manual: "#15191c", buy: "#ff5b14", rent: "#8a5f00", lease: "#6b4fa0", raas: "#1d7348" };
 const OPTS: Option[] = ["buy", "rent", "lease", "raas"];
 const RISK: Record<Option, [string, string, string]> = {
   buy: ["High: you own a machine that stands still", "Low: resale only", "You pay (budgeted)"],
@@ -31,12 +31,12 @@ function Chart({ series, rec }: { series: Record<Option | "manual", number[]>; r
     <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label="Cumulative cost over 60 months for each option and for doing it by hand">
       {ticks.map((t) => (
         <g key={t}>
-          <line x1={P.l} x2={W - P.r} y1={y(t)} y2={y(t)} stroke="#cfd4cc" strokeWidth={1} />
-          <text x={P.l - 8} y={y(t) + 4} textAnchor="end" fontSize={12} fill="#4a5761">{t >= 1000 ? `€${Math.round(t / 1000)}k` : "€0"}</text>
+          <line x1={P.l} x2={W - P.r} y1={y(t)} y2={y(t)} stroke="#dcddd8" strokeWidth={1} />
+          <text x={P.l - 8} y={y(t) + 4} textAnchor="end" fontSize={12} fill="#575e64">{t >= 1000 ? `€${Math.round(t / 1000)}k` : "€0"}</text>
         </g>
       ))}
       {[0, 12, 24, 36, 48, 60].map((m) => (
-        <text key={m} x={x(m)} y={H - P.b + 20} textAnchor="middle" fontSize={12} fill="#4a5761">{m === 0 ? "today" : `${m / 12} yr`}</text>
+        <text key={m} x={x(m)} y={H - P.b + 20} textAnchor="middle" fontSize={12} fill="#575e64">{m === 0 ? "today" : `${m / 12} yr`}</text>
       ))}
       {keys.map((k) => (
         <path key={k} d={path(series[k])} fill="none" stroke={COLORS[k]} strokeWidth={k === rec ? 4 : 2} strokeDasharray={k === "manual" ? "6 5" : undefined} opacity={k === rec || k === "manual" ? 1 : 0.65} />
@@ -103,14 +103,14 @@ export default function InvestPage() {
             </div>
           </fieldset>
           <label className="flex items-center gap-3 text-[17px] sm:col-span-2 lg:col-span-3">
-            <input type="checkbox" checked={inp.firstTry} onChange={(e) => set("firstTry", e.target.checked)} className="h-6 w-6 accent-[#24497a]" />
+            <input type="checkbox" checked={inp.firstTry} onChange={(e) => set("firstTry", e.target.checked)} className="h-6 w-6 accent-[var(--signal)]" />
             This would be our first machine of this kind
           </label>
         </section>
 
         <section className="mt-6 rounded-2xl bg-ink p-6 text-white">
           <p className="font-bold text-ruler">Our recommendation</p>
-          <p className="mt-1 font-display text-[30px] font-extrabold">{rec.option === "manual" ? "❌ Keep doing it by hand" : OPTION_LABELS[rec.option]}</p>
+          <p className="mt-1 font-display text-[30px] font-extrabold">{rec.option === "manual" ? "Keep doing it by hand" : OPTION_LABELS[rec.option]}</p>
           <p className="mt-1 max-w-2xl text-white/85">{rec.reason}</p>
           <p className="mt-3 text-[15px] text-white/70">Doing it by hand today costs ≈ {eur(sim.manualMonthly)} a month.{" "}
             {t.digital && funding.eligible ? `Buy price after Digitalbonus: ${eur(t.buyPrice)} → ${eur(t.buyPrice - funding.grant)} (estimate).` : ""}</p>

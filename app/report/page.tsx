@@ -56,7 +56,7 @@ export default function ReportPage() {
             {r.top.map((e) => (
               <tr key={e.id} className="border-b border-line align-top">
                 <td className="py-1.5 pr-2"><b>{e.title}</b><br /><span className="text-[12px] text-ink-2">{e.uc.type} · effort {e.uc.effort} · risk {e.uc.risk}</span></td>
-                <td className="py-1.5 pr-2">{e.verdict === "now" ? "✅ Do it now" : "⏳ Later"}</td>
+                <td className="py-1.5 pr-2">{e.verdict === "now" ? "Do it now" : "Later"}</td>
                 <td className="py-1.5 pr-2">{e.hours}</td>
                 <td className="py-1.5 pr-2">{eur(e.euroMonth)}</td>
                 <td className="py-1.5 pr-2">{e.funding.grant > 0 ? <><s className="text-ink-2">{eur(e.upfront)}</s> {eur(e.funding.fundedUpfront)}</> : eur(e.upfront)} + {eur(e.monthly)}/mo</td>
@@ -74,7 +74,7 @@ export default function ReportPage() {
             <p className="mt-2"><b>Success metric:</b> {pilot.metric}</p>
           </section>
           <section>
-            <h2 className="font-display text-[16px] font-extrabold">❌ Not worth it (for now)</h2>
+            <h2 className="font-display text-[16px] font-extrabold">Not worth it (for now)</h2>
             <ul className="mt-1 space-y-1.5">{r.notWorth.map((n) => <li key={n.id}><b>{n.uc.title}:</b> {n.reason}</li>)}</ul>
             <h2 className="mt-3 font-display text-[16px] font-extrabold">Key assumptions</h2>
             <ul className="mt-1 space-y-0.5">
