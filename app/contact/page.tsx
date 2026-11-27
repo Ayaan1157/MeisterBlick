@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Footer, SiteHeader, btn } from "@/components/ui";
 import { COMPANY, CONTACT_TOPICS, OFFICES, WORLDWIDE } from "@/lib/company";
 
@@ -13,6 +13,13 @@ export default function ContactPage() {
   const [m, setM] = useState<Msg>({ name: "", company: "", email: "", phone: "", topic: CONTACT_TOPICS[0], message: "" });
   const [sent, setSent] = useState<Msg | null>(null);
   const set = (k: keyof Msg, v: string) => setM((x) => ({ ...x, [k]: v }));
+
+  // ?topic=pilot (from the roadmap) preselects "Become a pilot firm"
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search).get("topic");
+    const hit = q && CONTACT_TOPICS.find((t) => t.toLowerCase().includes(q.toLowerCase()));
+    if (hit) setM((x) => ({ ...x, topic: hit }));
+  }, []);
 
   function submit(e: React.FormEvent) {
     e.preventDefault();

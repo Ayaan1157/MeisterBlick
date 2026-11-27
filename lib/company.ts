@@ -25,4 +25,4 @@ export const WORLDWIDE = {
   text: "Setup and support run remotely, so we work with firms anywhere: video calls in English or German, in your time zone.",
 };
 
-export const CONTACT_TOPICS = ["Free process check", "Licence and pricing", "Funding help", "Support for my agents", "Something else"];
+export const CONTACT_TOPICS = ["Free process check", "Licence and pricing", "Funding help", "Become a pilot firm", "Support for my agents", "Something else"];

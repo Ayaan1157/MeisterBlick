@@ -57,6 +57,7 @@ export function HomeHero() {
         { label: "Example", href: "#example" },
         { label: "Pricing", href: "#pricing" },
         { label: "Funding", href: "/funding" },
+        { label: "Roadmap", href: "/roadmap" },
         { label: "Contact", href: "/contact" },
       ]}
       cta={{ label: "Start free check", href: "/start" }}

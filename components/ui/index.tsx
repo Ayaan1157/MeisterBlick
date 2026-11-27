@@ -28,6 +28,7 @@ export function SiteHeader({ right }: { right?: ReactNode }) {
             <Link href="/#how" className="hidden px-3 py-2 text-ink-2 hover:text-ink sm:block">How it works</Link>
             <Link href="/#pricing" className="hidden px-3 py-2 text-ink-2 hover:text-ink sm:block">Pricing</Link>
             <Link href="/funding" className="hidden px-3 py-2 text-ink-2 hover:text-ink sm:block">Funding</Link>
+            <Link href="/roadmap" className="hidden px-3 py-2 text-ink-2 hover:text-ink lg:block">Roadmap</Link>
             <Link href="/contact" className="hidden px-3 py-2 text-ink-2 hover:text-ink sm:block">Contact</Link>
             <ButtonLink href="/start" size="sm">Start free check</ButtonLink>
           </nav>
@@ -133,6 +134,7 @@ export function Footer() {
           <li><Link className="hover:text-signal-dark" href="/results?example=becker">Example results</Link></li>
           <li><Link className="hover:text-signal-dark" href="/#pricing">Pricing</Link></li>
           <li><Link className="hover:text-signal-dark" href="/funding">Funding</Link></li>
+          <li><Link className="hover:text-signal-dark" href="/roadmap">Roadmap</Link></li>
           <li><Link className="hover:text-signal-dark" href="/contact">Contact</Link></li>
         </ul>
       </div>
