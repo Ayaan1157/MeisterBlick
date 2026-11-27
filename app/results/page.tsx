@@ -196,7 +196,7 @@ export default function ResultsPage() {
         <section className="mt-8 grid gap-3 sm:grid-cols-2">
           <ButtonLink href="/demo" size="lg">Try your demo assistant</ButtonLink>
           <ButtonLink href="/report" size="lg" variant="secondary">Download 1-page pilot report (PDF)</ButtonLink>
-          <button className={btn("secondary", "lg")} onClick={() => setBooked("Pilot Report")}>Book Pilot Report €490</button>
+          <ButtonLink href="/checkout?plan=pilot-report" size="lg" variant="secondary">Book Pilot Report €490</ButtonLink>
           <button className={btn("secondary", "lg")} onClick={() => setBooked("funding help")}>Get funding help</button>
         </section>
         {booked && (

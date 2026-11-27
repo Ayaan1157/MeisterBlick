@@ -23,9 +23,9 @@ const vsChatGPT = [
 
 const pricing = [
   { name: "Free Quick Check", price: "€0", note: "", items: ["Your top 3 with ROI", "1-page pilot report (PDF)", "Your own demo assistant"], cta: "Start free", href: "/start", main: true },
-  { name: "Pilot Report", price: "€490", note: "one-off", items: ["1-hour call", "Detailed pilot plan", "Vendor shortlist", "Help with the funding application"], cta: "Book Pilot Report", href: "/start" },
-  { name: "Starter Build", price: "from €499", note: "setup + €49 / month", items: ["Ready-made templates for your trade", "e.g. phone and callback assistant", "Live within a week"], cta: "Ask about Starter Build", href: "/start" },
-  { name: "AI Coach", price: "€99–199", note: "per month", items: ["Ongoing support", "Quarterly re-check", "ROI tracking against real numbers"], cta: "Ask about AI Coach", href: "/start" },
+  { name: "Pilot Report", price: "€490", note: "one-off", items: ["1-hour call", "Detailed pilot plan", "Vendor shortlist", "Help with the funding application"], cta: "Book Pilot Report", href: "/checkout?plan=pilot-report" },
+  { name: "Starter Build", price: "from €499", note: "setup + €49 / month", items: ["Ready-made templates for your trade", "e.g. phone and callback assistant", "Live within a week"], cta: "Book Starter Build", href: "/checkout?plan=starter-build" },
+  { name: "AI Coach", price: "€99–199", note: "per month", items: ["Ongoing support", "Quarterly re-check", "ROI tracking against real numbers"], cta: "Book AI Coach", href: "/checkout?plan=ai-coach" },
 ];
 
 const roadmap = [
