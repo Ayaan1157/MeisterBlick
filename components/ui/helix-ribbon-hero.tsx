@@ -47,6 +47,10 @@ export interface HelixRibbonHeroProps {
   grid?: HelixProject[]
   /** Line above the closing grid, e.g. whose answers these are. */
   gridLabel?: string
+  /** Lands in place of the grid: an interactive closing scene that fills the stage under the nav. */
+  finale?: React.ReactNode
+  /** Called when the finale comes into view or leaves it. */
+  onFinale?: (shown: boolean) => void
   brand?: string
   links?: { label: string; href: string }[]
   cta?: { label: string; href: string }
@@ -81,6 +85,8 @@ export const PHASE = {
   /** reduced motion: fades in place instead */
   calmOut: [0.04, 0.2],
   calmIn: [0.42, 0.58],
+  /** the finale, when given, replaces the grid */
+  finale: [0.52, 0.7],
 }
 
 /** Cards per helix turn, and the turn's rise in card heights. */
@@ -149,6 +155,7 @@ const CSS = [
   ".hrh-hint{font-size:14px;font-weight:700;line-height:1;white-space:nowrap}",
   ".hrh-count{position:absolute;left:0;top:0;z-index:3;font-size:15px;font-weight:700;line-height:1;white-space:nowrap}",
   ".hrh-grid{position:absolute;inset:0;z-index:5;pointer-events:none}",
+  ".hrh-finale{position:absolute;left:0;right:0;bottom:0;top:calc(var(--hrh-g) + 58px);z-index:6;padding:0 var(--hrh-g) var(--hrh-g);pointer-events:none;transform-origin:50% 100%;will-change:transform,opacity}",
   ".hrh-glabel{position:absolute;left:0;top:0;z-index:5;margin:0;font-size:clamp(15px,1.3vw,19px);font-weight:700;line-height:1.2;pointer-events:none}",
   ".hrh-card{position:absolute;left:0;top:0;opacity:0}",
   ".hrh-card-img{position:relative;overflow:hidden;background:#fff;box-shadow:0 18px 40px -24px rgba(21,25,28,.55)}",
@@ -178,6 +185,8 @@ export default function HelixRibbonHero({
   projects = EMPTY,
   grid,
   gridLabel = "",
+  finale,
+  onFinale,
   brand = "MeisterBlick",
   links = [],
   cta = { label: "Start free check", href: "/start" },
@@ -201,9 +210,13 @@ export default function HelixRibbonHero({
   const footRef = React.useRef(null as HTMLDivElement | null)
   const gridRef = React.useRef(null as HTMLDivElement | null)
   const labelRef = React.useRef(null as HTMLParagraphElement | null)
+  const finaleRef = React.useRef(null as HTMLDivElement | null)
+  const onFinaleRef = React.useRef(onFinale)
+  onFinaleRef.current = onFinale
   // The ribbon's lower end leaves the screen last, while the grid lands.
   const ribbon = React.useMemo(() => projects.slice(0, 12).reverse(), [projects])
-  const tiles = React.useMemo(() => (grid ?? projects).slice(0, 6), [grid, projects])
+  const hasFinale = finale != null
+  const tiles = React.useMemo(() => (hasFinale ? EMPTY : (grid ?? projects).slice(0, 6)), [hasFinale, grid, projects])
   const [ready, setReady] = React.useState(false)
   const [reduced, setReduced] = React.useState(false)
 
@@ -236,6 +249,8 @@ export default function HelixRibbonHero({
     const foot = footRef.current
     const gridEl = gridRef.current
     const label = labelRef.current
+    const fin = finaleRef.current
+    let finShown = false
     if (!ready || !root || !stage || !view || !group || !screw || !l1 || !l2 || !port || !countEl || !foot || !gridEl) return
     const slices = Array.from(screw.children) as HTMLDivElement[]
     const cards = Array.from(gridEl.children) as HTMLDivElement[]
@@ -411,6 +426,20 @@ export default function HelixRibbonHero({
             shade[k] = b
             slices[k].style.filter = "brightness(" + b.toFixed(3) + ")"
           }
+        }
+      }
+
+      // finale: rises into place where the grid would land, then holds
+      if (fin) {
+        const t = calm ? seg(p, PHASE.calmIn[0], PHASE.calmIn[1]) : easeOut(seg(p, PHASE.finale[0], PHASE.finale[1]))
+        fin.style.opacity = t.toFixed(3)
+        fin.style.visibility = t > 0.001 ? "visible" : "hidden"
+        fin.style.transform = calm ? "" : "translate3d(0," + px((1 - t) * H * 0.18) + ",0) scale(" + (0.94 + 0.06 * t).toFixed(4) + ")"
+        const on = t > 0.6
+        fin.style.pointerEvents = on ? "auto" : "none"
+        if (on !== finShown) {
+          finShown = on
+          onFinaleRef.current?.(on)
         }
       }
 
@@ -601,6 +630,12 @@ export default function HelixRibbonHero({
           <p ref={labelRef} className="hrh-glabel" style={{ opacity: 0 }}>
             {gridLabel}
           </p>
+        ) : null}
+
+        {hasFinale ? (
+          <div ref={finaleRef} className="hrh-finale" style={{ opacity: 0, visibility: "hidden" }}>
+            {finale}
+          </div>
         ) : null}
 
         <div ref={gridRef} className="hrh-grid">

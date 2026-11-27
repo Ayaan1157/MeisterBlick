@@ -1,7 +1,8 @@
 "use client";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { AnswerFlow } from "@/components/AnswerFlow";
 import HelixRibbonHero from "@/components/ui/helix-ribbon-hero";
-import { answerCards, ribbonCards } from "@/lib/heroCards";
+import { answerCovers, ribbonCards } from "@/lib/heroCards";
 import { rank, USE_CASES } from "@/lib/scoring";
 import { demoState } from "@/lib/store";
 
@@ -28,11 +29,12 @@ function RulerMark() {
 }
 
 export function HomeHero() {
-  const { projects, grid } = useMemo(() => {
+  const { projects, covers } = useMemo(() => {
     const s = demoState("becker", true);
     const r = rank(s.picks!, s.assumptions, s.lead!, s.budget);
-    return { projects: ribbonCards(), grid: answerCards(r, s.picks!) };
+    return { projects: ribbonCards(), covers: answerCovers(r, s.picks!, (a) => `/results?example=becker${a}`) };
   }, []);
+  const [shown, setShown] = useState(false);
 
   return (
     <HelixRibbonHero
@@ -40,8 +42,8 @@ export function HomeHero() {
       name="pays off"
       mark={<RulerMark />}
       projects={projects}
-      grid={grid}
-      gridLabel="Becker Bauservice, painters, 14 people: six answers"
+      finale={<AnswerFlow covers={covers} label="Becker Bauservice, painters, 14 people: six answers" active={shown} />}
+      onFinale={setShown}
       brand="MeisterBlick"
       links={[
         { label: "Try it", href: "#quick" },
@@ -53,7 +55,7 @@ export function HomeHero() {
       count={`( ${USE_CASES.length} tools checked )`}
       bio="An honest AI check for craft businesses. Ten minutes, one number in euros, and a straight answer where it doesn't pay."
       scrollHint="Scroll: one painter's answers"
-      screens={3.5}
+      screens={3}
     />
   );
 }
