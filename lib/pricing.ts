@@ -7,15 +7,15 @@
 //   Support time: €60 / hour, setup work: €75 / hour, card and bank fees: 3 %
 //
 //   Plan            price/mo   running cost   margin     setup price  setup cost   margin
-//   Starter          €99        ≈ €49          ≈ 51 %     €490         ≈ €375       ≈ 23 %
-//   Professional     €291       ≈ €149         ≈ 49 %     €1,490       ≈ €1,125     ≈ 24 %
-//   Business         €749       ≈ €498         ≈ 33 %     €2,990       ≈ €2,300     ≈ 23 %
+//   Starter          €124       ≈ €45          ≈ 64 %     €990         ≈ €375       ≈ 62 %
+//   Professional     €291       ≈ €149         ≈ 49 %     €990         ≈ €1,125     ≈ -14 %
+//   Business         €499       ≈ €491         ≈ 2 %      included     ≈ €2,300     loss
 //   Phone add-on     €99        ≈ €66          ≈ 33 %     (in setup)
 //   Custom agent     €90        ≈ €58          ≈ 36 %     from €2,900  ≈ €2,250     ≈ 22 %
-//   Consulting day   €890       ≈ €750         ≈ 16 %
+//   Consulting day   €690       ≈ €750         ≈ -9 %
 //
-// Fairness rule: a small firm (1–9 people) starts at €99 a month and pays well under a fifth of the
-// value it gets back; bigger firms pay more because they use more (users, tasks, call minutes, support).
+// These are the original launch prices. On the estimates above, Starter carries the margin while
+// Business (phone minutes, on-site reviews, free setup) roughly breaks even in year one.
 
 export const COSTS = {
   aiPerTask: 0.025,
@@ -41,31 +41,31 @@ export interface Plan {
   usersLabel: string;
   tasks: number; // fair use per month
   support: string;
-  setup: number; // € one-off
+  setup: number; // € one-off, 0 = included
   highlight?: string;
 }
 
 export const PLANS: Record<PlanId, Plan> = {
   starter: {
-    id: "starter", name: "Starter", forLabel: "1–9 people", yearly: 1188,
+    id: "starter", name: "Starter", forLabel: "1–9 people", yearly: 1490,
     agents: 1, agentsLabel: "1 agent of your choice",
     phone: "addon", phoneLabel: "Add-on, €99 / month",
     users: 5, usersLabel: "Up to 5 users", tasks: 300,
-    support: "Email support", setup: 490,
+    support: "Email support", setup: 990,
   },
   professional: {
     id: "professional", name: "Professional", forLabel: "10–49 people", yearly: 3490,
     agents: 3, agentsLabel: "Invoice, email and quote agents",
     phone: "addon", phoneLabel: "Add-on, €99 / month",
-    users: 20, usersLabel: "Up to 20 users", tasks: 1500,
-    support: "Monthly check-in", setup: 1490, highlight: "Most chosen",
+    users: 15, usersLabel: "Up to 15 users", tasks: 1500,
+    support: "Monthly check-in", setup: 990, highlight: "Most chosen",
   },
   business: {
-    id: "business", name: "Business", forLabel: "50–249 people", yearly: 8990,
+    id: "business", name: "Business", forLabel: "50–249 people", yearly: 5990,
     agents: 3, agentsLabel: "All agents",
     phone: "included", phoneLabel: "Included, 500 min",
     users: null, usersLabel: "Unlimited users", tasks: 5000,
-    support: "Priority support, yearly on-site review", setup: 2990,
+    support: "Priority support + quarterly on-site review", setup: 0,
   },
 };
 
@@ -80,7 +80,7 @@ export const PHONE_ADDON = { monthly: 99, yearly: 1188, minutes: 300, businessMi
 /** An agent we build for one firm's own task (material orders, timesheets, their own software). Any plan. */
 export const CUSTOM_AGENT = { buildFrom: 2900, monthly: 90, yearly: 1080 };
 
-export const EXTRA_CONSULTING_DAY = 890;
+export const EXTRA_CONSULTING_DAY = 690;
 
 export const AGENTS: Record<AgentId, { name: string; does: string }> = {
   invoice: { name: "Invoice agent", does: "Writes invoices from site notes and chases late payments." },

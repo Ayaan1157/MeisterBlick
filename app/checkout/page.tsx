@@ -272,7 +272,7 @@ export default function CheckoutPage() {
               {r.billing === "monthly" && (
                 <div className="flex justify-between gap-3 py-2.5"><dt>Paid monthly</dt><dd className="font-bold tnum">≈ {euro(runningYear / 12)} / month</dd></div>
               )}
-              <div className="flex justify-between gap-3 py-2.5"><dt>Setup, one-off</dt><dd className="font-bold tnum">{euro(P.setup)}</dd></div>
+              <div className="flex justify-between gap-3 py-2.5"><dt>Setup, one-off</dt><dd className="font-bold tnum">{P.setup ? euro(P.setup) : "Included"}</dd></div>
               {r.custom && (
                 <div className="flex justify-between gap-3 py-2.5"><dt>Custom agent build</dt><dd className="font-bold tnum">from {euro(CUSTOM_AGENT.buildFrom)}</dd></div>
               )}

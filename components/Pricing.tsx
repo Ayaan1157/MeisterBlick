@@ -46,7 +46,7 @@ export function PricingCards() {
                   ["Users", p.usersLabel],
                   ["Fair use", `≈ ${p.tasks.toLocaleString("en-US")} tasks / month`],
                   ["Support", p.support],
-                  ["Setup", `${euro(p.setup)} one-off`],
+                  ["Setup", p.setup ? `${euro(p.setup)} one-off` : "Included"],
                 ].map(([k, v]) => (
                   <div key={k} className="grid grid-cols-[104px_1fr] gap-3 py-2.5">
                     <dt className="text-ink-2">{k}</dt>
