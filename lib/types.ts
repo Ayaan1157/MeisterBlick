@@ -99,3 +99,67 @@ export interface CheckState {
   demoMode: boolean;
   exampleId?: string;
 }
+
+/** What a visitor can do on a business website, detected from its pages. */
+export interface SiteSignals {
+  phone: boolean;
+  email: boolean;
+  whatsapp: boolean;
+  contactForm: boolean;
+  booking: boolean;
+  chat: boolean;
+  hours: boolean;
+  faq: boolean;
+  reviews: boolean;
+  prices: boolean;
+  social: boolean;
+  gallery: boolean;
+  shop: boolean;
+  jobs: boolean;
+  quoteRequest: boolean;
+  copyrightYear: number | null;
+  https?: boolean;
+  mobile?: boolean;
+  lang?: string | null;
+  words?: number;
+  images?: number;
+  pages?: number;
+}
+
+export interface Finding {
+  label: string;
+  detail: string;
+  tone: "good" | "gap";
+}
+
+/** A before/after sample of what one AI feature would produce for this business. */
+export interface Sample {
+  before: string;
+  after: string;
+}
+
+export interface Opportunity {
+  id: string;
+  evidence: string; // what on the site or in the description points to it
+  sample: Sample;
+}
+
+export interface ScanResult {
+  url: string;
+  host: string;
+  read: boolean;
+  pages: number;
+  name: string;
+  industry: Industry;
+  summary: string;
+  services: string[];
+  findings: Finding[];
+  signals: SiteSignals | null;
+  opportunities: Opportunity[];
+  suggestions: string[]; // questions to try in the demo assistant
+  picks: Picks;
+  lead: Lead;
+  siteText?: string;
+  note: string;
+  source: "ai" | "rules";
+}

@@ -6,6 +6,7 @@ import { DrawLine } from "@/components/motion/DrawLine";
 import { OpeningBand } from "@/components/motion/OpeningBand";
 import { ScrollHeading } from "@/components/motion/ScrollHeading";
 import { QuickEstimate } from "@/components/QuickEstimate";
+import { WebsiteScan } from "@/components/WebsiteScan";
 import { LicenceNote } from "@/components/LicenceNote";
 import { PricingCards } from "@/components/Pricing";
 import { Footer } from "@/components/ui";
@@ -16,6 +17,19 @@ export default function Home() {
     <>
       <main>
         <HomeHero />
+
+        {/* Website scan: the owner's site and own words → fitting AI features, savings, a free demo */}
+        <section id="scan" aria-labelledby="scan-h" className="scroll-mt-4">
+          <div className="mx-auto max-w-6xl px-4 pt-20 sm:px-6 sm:pt-28">
+            <ScrollHeading id="scan-h" className="font-poster text-[40px] text-balance sm:text-[60px]">Start with your website</ScrollHeading>
+            <p className="mt-4 max-w-2xl text-[19px] text-ink-2">
+              Paste your website and tell us what&apos;s going wrong. We read your site, show which AI features fit your business and what they&apos;d save, and build a free demo from your own pages.
+            </p>
+            <div className="mt-12">
+              <WebsiteScan />
+            </div>
+          </div>
+        </section>
 
         {/* Ten-second estimate */}
         <section id="quick" aria-labelledby="quick-h" className="scroll-mt-4">
