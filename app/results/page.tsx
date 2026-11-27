@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ButtonLink, Ruler, SiteHeader, Tag, Verdict, btn } from "@/components/ui";
+import { FrostedFolderLookbook, type FolderSheet } from "@/components/ui/frosted-folder-lookbook";
 import { FUNDING_NOTE } from "@/lib/funding";
 import { BUDGET_LABELS, eur, months, rank, type Evaluated } from "@/lib/scoring";
 import { useCheckState } from "@/lib/store";
@@ -24,7 +25,8 @@ function Card({ e, index }: { e: Evaluated; index: number }) {
       animate={{ opacity: 1, y: 0, transition: { ...spring, delay: index * 0.08 } }}
       exit={reduce ? undefined : { opacity: 0, scale: 0.98, transition: { duration: 0.15 } }}
       transition={spring}
-      className="rounded-xl border border-line bg-sheet p-5 sm:p-6"
+      id={`uc-${e.id}`}
+      className="scroll-mt-20 rounded-xl border border-line bg-sheet p-5 sm:p-6"
     >
       <div className="flex flex-wrap items-center gap-2">
         <Verdict v={e.verdict} />
@@ -115,11 +117,34 @@ export default function ResultsPage() {
   const pilot = state.picks.pilot;
   const pilotEval = results.top.find((t) => t.id === pilot.id);
   const pilotTitle = pilotEval?.title ?? state.picks.candidates.find((c) => c.id === pilot.id)?.title ?? "";
+  const sheets: FolderSheet[] = [
+    ...results.top.map((e, i): FolderSheet => ({
+      kind: e.verdict === "now" ? "now" : "later",
+      code: `No. ${i + 1}`,
+      title: e.title,
+      note: e.description,
+      big: `≈ ${eur(e.euroMonth)}`,
+      bigNote: `per month · ≈ ${e.hours} h`,
+      foot: `Payback: ${months(e.paybackMonths)}`,
+      href: `#uc-${e.id}`,
+    })),
+    { kind: "pilot" as const, code: "2 weeks", title: pilotTitle, note: pilot.why, foot: `Success: ${pilot.metric}`, href: "#pilot" },
+    ...results.notWorth.map((e): FolderSheet => ({
+      kind: "no",
+      code: "Skip",
+      title: e.uc.title,
+      note: e.reason,
+      foot: `Payback: ${months(e.paybackMonths)}`,
+      href: `#no-${e.id}`,
+    })),
+  ].slice(0, 6);
+  const fileDate = new Date().toLocaleDateString("en-GB", { month: "long", year: "numeric" });
 
   return (
     <>
       <SiteHeader right={<span className="text-[15px] text-ink-2">Step 3 of 3 · your results</span>} />
-      <main className="mx-auto w-full max-w-4xl px-4 pb-24 pt-8 sm:px-6">
+      <main className="w-full pb-24 pt-8">
+        <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
         {/* Headline */}
         <section className="squared rise rounded-2xl border border-line p-5 sm:p-8">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -133,6 +158,27 @@ export default function ResultsPage() {
           <p className="mt-2 text-ink-2">From your top 3, after running costs. Change any number under “Assumptions”.</p>
         </section>
 
+        </div>
+
+        {/* Results file: 4–6 feedback sheets in a frosted folder */}
+        <section aria-labelledby="file-h" className="mt-8">
+          <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
+            <h2 id="file-h" className="font-display text-[26px] font-extrabold">Your results file</h2>
+            <p className="text-ink-2">Open it for the quick overview. Tap a sheet to jump to the details.</p>
+          </div>
+          <FrostedFolderLookbook
+            className="mt-4"
+            title={name}
+            subtitle="AI Check results"
+            line={`Score ${results.checkScore} / 100 · ${fileDate}`}
+            footer="Estimates only"
+            wordmark="MeisterBlick"
+            sheets={sheets}
+            height="clamp(700px, 92svh, 780px)"
+          />
+        </section>
+
+        <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
         {/* Budget slider */}
         <section className="mt-6 rounded-xl border border-line bg-sheet p-5">
           <label htmlFor="budget" className="font-display text-[20px] font-extrabold">Your budget for a first step</label>
@@ -161,7 +207,7 @@ export default function ResultsPage() {
             <p className="text-ink-2">We'd rather tell you now than after you've paid.</p>
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
               {results.notWorth.map((e) => (
-                <article key={e.id} className="rounded-xl border-2 border-no/25 bg-no-bg/40 p-5">
+                <article key={e.id} id={`no-${e.id}`} className="scroll-mt-20 rounded-xl border-2 border-no/25 bg-no-bg/40 p-5">
                   <div className="flex flex-wrap items-center gap-2"><Verdict v="no" /><Tag>{e.uc.type}</Tag></div>
                   <h3 className="mt-3 font-display text-[21px] font-extrabold leading-tight">{e.uc.title}</h3>
                   <p className="mt-2">{e.reason}</p>
@@ -176,7 +222,7 @@ export default function ResultsPage() {
         )}
 
         {/* Pilot */}
-        <section className="mt-12 rounded-2xl bg-ink p-6 text-white sm:p-8">
+        <section id="pilot" className="mt-12 scroll-mt-20 rounded-2xl bg-ink p-6 text-white sm:p-8">
           <p className="font-bold text-ruler">Your first pilot</p>
           <h2 className="mt-1 font-display text-[28px] font-extrabold leading-tight">{pilotTitle}</h2>
           <p className="mt-2 text-white/85">{pilot.why}</p>
@@ -242,6 +288,7 @@ export default function ResultsPage() {
         <div className="mt-8 flex flex-wrap gap-4 text-[16px]">
           <Link href="/start" className="font-bold text-blue underline underline-offset-4">Start over</Link>
           <Link href="/invest" className="font-bold text-blue underline underline-offset-4">Smart Investment Selector</Link>
+        </div>
         </div>
       </main>
     </>
